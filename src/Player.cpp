@@ -9,6 +9,6 @@ void Player::find_solution(/*args?*/){
 
 int Player::next_move(){
     //sorteia uma ação aleatória que não causa morte
-    /*retorna uma ação aleatória entre 0 e 4*/
+    /*retorna uma ação aleatória entre 0 e 3*/
     return rand()%4;
 }

@@ -8,4 +8,6 @@ add_executable( snaze
                 src/SnakeGame.cpp
                 src/main.cpp
                 src/Player.cpp
+                src/Level.cpp
+                src/Snake.cpp
                 )

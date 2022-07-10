@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "Player.hpp"
+#include "Level.hpp"
+#include "Snake.hpp"
 
 class SnakeGame{
     public:
@@ -18,8 +20,12 @@ class SnakeGame{
         };
 
     private:
+        Level *m_level; //<! representa o level atual
+        Snake *m_snake;
+
+        //int m_l, m_c; //representa a posição do pacman no exemplo da sala.
         //<! atributos adicione outros se quiser
-        std::vector<std::string> m_maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
+        //std::vector<std::string> m_maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
         int m_frameCount; //<! contador de frames, usado apenas como exemplo
         std::string m_choice; //<! usado na função process_actions para guardar a escolha do usuário
         GameStates m_state; //<! guarda o estado do jogo
