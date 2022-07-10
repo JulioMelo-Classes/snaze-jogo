@@ -8,7 +8,7 @@
 #include <thread> //por causa do sleep
 
 using namespace std;
-
+int teste = 0;
 SnakeGame::SnakeGame(string levels){
     m_levels_file=levels;
     m_choice = "";
@@ -57,27 +57,19 @@ void SnakeGame::update(){
             /*atualiza a posição do Snake de acordo com a escolha*/
             if(m_action == 0){ //up
                 m_snake->move(-1,0);
-                int linha = m_snake->get_pos().first;
-                if(linha < 0)
-                    m_snake->set_pos({0, m_snake->get_pos().second});
+          
             }
             else if(m_action == 1){ //down
                 m_snake->move(1,0);
-                int linha = m_snake->get_pos().first;
-                if(linha >= m_level->get_linhas())
-                    m_snake->set_pos({m_level->get_linhas()-1, m_snake->get_pos().second});
             }
             else if(m_action == 2){ //right
                 m_snake->move(0,1);
-                int coluna = m_snake->get_pos().second;
-                if(coluna >= m_level->get_colunas())
-                    m_snake->set_pos({m_snake->get_pos().first,  m_level->get_colunas()-1});
             }
             else{ //left
                 m_snake->move(0,-1);
-                int coluna = m_snake->get_pos().second;
-                if(coluna  < 0)
-                    m_snake->set_pos({m_snake->get_pos().first, 0});
+            }
+            if(!m_level->permitido(m_snake->get_pos())) {
+                m_state = LOSE_LIFE;
             }
             //sempre depois de executar "running" uma vez
             //o jogo pergunta para a IA qual sua escolha
@@ -98,6 +90,10 @@ void SnakeGame::update(){
         case WAITING_IA: //Esperando pela IA
             /*alguma coisa aqui*/
             m_state = RUNNING; //depois de processar coisas da IA sempre passa para Running
+            break;
+        case LOSE_LIFE:
+            m_snake->set_vidas(m_snake->get_vidas()-1);
+            m_snake->set_pos({m_level->get_init_linha(), m_level->get_init_coluna()});
             break;
         default:
             //nada pra fazer aqui
@@ -146,10 +142,17 @@ void SnakeGame::render(){
                 }
                 cout<<endl;
             }
-            cout<<"l,c: "<<pos_l<< "," <<pos_c<< " fc: "<<m_frameCount<<endl;
+            cout<<"l,c: "<<pos_l<< "," <<pos_c<< "|*| vidas: " << m_snake->get_vidas() <<" fc: "<<m_frameCount<<endl;
             break;
         case WAITING_USER:
             cout<<"Você quer iniciar/continuar o jogo? (s/n)"<<endl;
+            break;
+        case LOSE_LIFE:
+            teste++;
+            cout << "\nPerdeu uma vida!" << endl;
+            cout << teste<< "<< " <<endl;
+            cout << m_snake->get_pos().first << " e " << m_snake->get_pos().second << endl;
+            wait(50);
             break;
         case GAME_OVER:
             cout<<"O jogo terminou!"<<endl;
@@ -167,6 +170,8 @@ void SnakeGame::loop(){
         process_actions();
         update();
         render();
-        wait(50);// espera 1 segundo entre cada frame
+        wait(400);// espera 1 segundo entre cada frame
     }
+    delete m_snake;
+    delete m_level;
 }

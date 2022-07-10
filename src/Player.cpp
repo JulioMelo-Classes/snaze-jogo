@@ -43,5 +43,5 @@ int Player::next_move(){
     /*retorna uma ação aleatória entre 0 e 3*/
     int acao = m_acoes.front();
     m_acoes.erase(m_acoes.begin());
-    return acao;
+    return rand()%4;
 }

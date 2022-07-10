@@ -13,7 +13,7 @@ Level::Level(string level_file){
         getline(levelFile, line);
         //15 10 4
         stringstream ss;
-        ss<<line;
+        ss<<line; // Recebe a linha em ss e dps distribui para cada variável
         ss>>m_linhas;
         ss>>m_colunas;
         ss>>m_comidas;
@@ -23,6 +23,7 @@ Level::Level(string level_file){
                 /*encontra a posição inicial de acordo com o mapa*/
                 m_init_linha = lineCount;
                 m_init_coluna = line.find("v");
+                line[m_init_coluna] = ' ';
             }
             m_maze.push_back(line);
             lineCount++;

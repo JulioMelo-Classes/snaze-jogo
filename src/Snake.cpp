@@ -2,9 +2,18 @@
 using namespace std;
 
 Snake::Snake(int linha_inicial, int coluna_inicial){
-    m_posc = coluna_inicial;
+    m_vidas = 5;
     m_posl = linha_inicial;
+    m_posc = coluna_inicial;
     m_grafico = 'c';
+}
+
+int Snake::get_vidas() {
+    return m_vidas;
+}
+
+void Snake::set_vidas(int vidas) {
+    m_vidas = vidas;
 }
 
 pair<int,int> Snake::get_pos(){
