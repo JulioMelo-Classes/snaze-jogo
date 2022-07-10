@@ -23,7 +23,7 @@ class SnakeGame{
         Level *m_level; //<! representa o level atual
         Snake *m_snake;
 
-        //int m_l, m_c; //representa a posição do pacman no exemplo da sala.
+        //int m_l, m_c; //representa a posição do Snake no exemplo da sala.
         //<! atributos adicione outros se quiser
         //std::vector<std::string> m_maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
         int m_frameCount; //<! contador de frames, usado apenas como exemplo

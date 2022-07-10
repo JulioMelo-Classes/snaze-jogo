@@ -1,13 +1,5 @@
 #ifndef Level_hpp
 #define Level_hpp
-<<<<<<< Updated upstream
-
-class Level {
-
-};
-
-#endif
-=======
 #include <vector>
 #include <iostream>
 
@@ -27,6 +19,7 @@ class Level{
         int get_colunas();
 
         char get_maze_element(int l, int c);
+
+        bool permitido(std::pair<int,int> pos);
 };
 #endif //Level_hpp
->>>>>>> Stashed changes

@@ -1,8 +1,3 @@
-<<<<<<< Updated upstream
-#include "Level.hpp"
-
-using namespace std;
-=======
 #include <fstream>
 #include <sstream>
 
@@ -54,4 +49,16 @@ int Level::get_colunas(){
 char Level::get_maze_element(int l, int c){
     return m_maze.at(l).at(c);
 }
->>>>>>> Stashed changes
+
+bool Level::permitido(std::pair<int,int> pos){
+    if(pos.first < 0 || pos.second < 0)
+        return false;
+    
+    if(pos.first >= m_linhas || pos.second >= m_colunas)
+        return false;
+
+    if(m_maze.at(pos.first).at(pos.second) == '#')
+        return false;
+
+    return true;
+}

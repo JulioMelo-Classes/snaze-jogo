@@ -1,8 +1,4 @@
 #include "Snake.hpp"
-<<<<<<< Updated upstream
-
-using namespace std;
-=======
 using namespace std;
 
 Snake::Snake(int linha_inicial, int coluna_inicial){
@@ -28,4 +24,3 @@ void Snake::move(int l, int c){
     m_posl += l;
     m_posc += c;
 }
->>>>>>> Stashed changes

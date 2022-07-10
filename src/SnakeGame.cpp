@@ -24,7 +24,7 @@ void SnakeGame::initialize_game(){
     //m_c = m_level->get_init_coluna();
     m_state = WAITING_USER; //estado inicial é WAITING_USER, mas poderia ser outro
     m_ia_player = Player();
-    m_snake = new Pacman(m_level->get_init_linha(), m_level->get_init_coluna());
+    m_snake = new Snake(m_level->get_init_linha(), m_level->get_init_coluna());
 }
 
 
@@ -39,6 +39,7 @@ void SnakeGame::process_actions(){
             cin>>std::ws>>m_choice;
             break;
         case WAITING_IA:
+            m_ia_player.find_solution(m_level, m_snake);
             m_action = m_ia_player.next_move();
             break;
         default:
@@ -53,7 +54,7 @@ void SnakeGame::update(){
         case RUNNING:
             //if(m_frameCount>0 && m_frameCount%10 == 0) //depois de 10 frames o jogo pergunta se o usuário quer continuar
             //    m_state = WAITING_USER;
-            /*atualiza a posição do pacman de acordo com a escolha*/
+            /*atualiza a posição do Snake de acordo com a escolha*/
             if(m_action == 0){ //up
                 m_snake->move(-1,0);
                 int linha = m_snake->get_pos().first;
@@ -166,6 +167,6 @@ void SnakeGame::loop(){
         process_actions();
         update();
         render();
-        wait(500);// espera 1 segundo entre cada frame
+        wait(50);// espera 1 segundo entre cada frame
     }
 }

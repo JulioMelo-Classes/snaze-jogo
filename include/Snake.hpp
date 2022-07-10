@@ -1,12 +1,5 @@
 #ifndef Snake_hpp
 #define Snake_hpp
-<<<<<<< Updated upstream
-
-class Snake {
-
-};
-
-=======
 #include <iostream>
 
 class Snake{
@@ -27,5 +20,4 @@ class Snake{
         
     
 };
->>>>>>> Stashed changes
 #endif
