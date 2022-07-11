@@ -93,7 +93,13 @@ void SnakeGame::update(){
             break;
         case LOSE_LIFE:
             m_snake->set_vidas(m_snake->get_vidas()-1);
-            m_snake->set_pos({m_level->get_init_linha(), m_level->get_init_coluna()});
+            m_snake->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
+            if(m_snake->get_vidas() == 0) {
+                m_state = GAME_OVER;
+                game_over();
+            } else {
+                m_state = WAITING_IA;
+            }
             break;
         default:
             //nada pra fazer aqui
@@ -142,7 +148,7 @@ void SnakeGame::render(){
                 }
                 cout<<endl;
             }
-            cout<<"l,c: "<<pos_l<< "," <<pos_c<< "|*| vidas: " << m_snake->get_vidas() <<" fc: "<<m_frameCount<<endl;
+            cout<<"l,c: "<<pos_l<< "," <<pos_c<< " |*| vidas: " << m_snake->get_vidas() <<" fc: "<<m_frameCount<<endl;
             break;
         case WAITING_USER:
             cout<<"Você quer iniciar/continuar o jogo? (s/n)"<<endl;
@@ -150,9 +156,7 @@ void SnakeGame::render(){
         case LOSE_LIFE:
             teste++;
             cout << "\nPerdeu uma vida!" << endl;
-            cout << teste<< "<< " <<endl;
-            cout << m_snake->get_pos().first << " e " << m_snake->get_pos().second << endl;
-            wait(50);
+            wait(400);
             break;
         case GAME_OVER:
             cout<<"O jogo terminou!"<<endl;
@@ -162,6 +166,8 @@ void SnakeGame::render(){
 }
 
 void SnakeGame::game_over(){
+    delete m_snake;
+    delete m_level;
 }
 
 void SnakeGame::loop(){
@@ -170,8 +176,6 @@ void SnakeGame::loop(){
         process_actions();
         update();
         render();
-        wait(400);// espera 1 segundo entre cada frame
+        wait(500);// espera 1 segundo entre cada frame
     }
-    delete m_snake;
-    delete m_level;
 }
