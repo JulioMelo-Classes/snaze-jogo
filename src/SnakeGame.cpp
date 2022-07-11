@@ -155,7 +155,7 @@ void SnakeGame::render(){
             break;
         case LOSE_LIFE:
             teste++;
-            cout << "\nPerdeu uma vida!" << endl;
+            cout << "\nPerdeu uma vida!!" << endl;
             wait(400);
             break;
         case GAME_OVER:
