@@ -9,5 +9,5 @@ add_executable( snaze
                 src/main.cpp
                 src/Player.cpp
                 src/Level.cpp
-                src/Snake.cpp
+                src/Pacman.cpp
                 )

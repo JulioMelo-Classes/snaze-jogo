@@ -2,10 +2,9 @@
 #define SnakeGame_hpp
 #include <iostream>
 #include <vector>
-
 #include "Player.hpp"
 #include "Level.hpp"
-#include "Snake.hpp"
+#include "Pacman.hpp"
 
 class SnakeGame{
     public:
@@ -17,12 +16,13 @@ class SnakeGame{
             GAME_OVER, //<! quando o jogo deve terminar o estado é GAME_OVER
             WAITING_USER, //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
             WAITING_IA, //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
-            LOSE_LIFE //<! quando perde uma vida entra nesse estado
+            LOSE_LIFE, //<! quando perde uma vida entra nesse estado
+            WINNER
         };
 
     private:
         Level *m_level; //<! representa o level atual
-        Snake *m_snake;
+        Pacman *m_pacman;
 
         //int m_l, m_c; //representa a posição do Snake no exemplo da sala.
         //<! atributos adicione outros se quiser
@@ -31,13 +31,15 @@ class SnakeGame{
         std::string m_choice; //<! usado na função process_actions para guardar a escolha do usuário
         GameStates m_state; //<! guarda o estado do jogo
         std::string m_levels_file; //<! arquivo com os níveis do jogo
+        std::string m_modo; //<! arquivo com os níveis do jogo
+        std::string m_ia; //<! arquivo com os níveis do jogo
         Player m_ia_player; //<! instancia da classe Player responsável pela IA do jogo
         int m_action; //<! Representa a ação escolhida pela IA
     public:
         /**
         * @brief construtor padrão, fique à vontade para adicionar parâmetros se desejar
         **/
-        SnakeGame(std::string levels);
+        SnakeGame(std::string levels, std::string mode, std::string ia);
 
         /**
         * @brief chamado no main, este loop executa o jogo indefinidamente até que o usuário escolha terminar!

@@ -3,11 +3,9 @@
 
 using namespace std;
 
-int main(int argc, char *argv[]){
-
+int main(int argc, char *argv[3]){
     //TODO: processar os argumentos
-
-    SnakeGame game("../data/maze1.txt");
+    SnakeGame game(argv[1], argv[2], argv[3]);
     
     game.loop(); //bloqueia aqui e só saí quando o jogo termina
 

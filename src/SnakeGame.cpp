@@ -9,8 +9,10 @@
 
 using namespace std;
 
-SnakeGame::SnakeGame(string levels) {
+SnakeGame::SnakeGame(string levels, string mode, string ia) {
     m_levels_file = levels;
+    m_modo = mode;
+    m_ia = ia;
     m_choice = "";
     m_frameCount = 0;
     initialize_game();
@@ -24,8 +26,15 @@ void SnakeGame::initialize_game() {
     // m_c = m_level->get_init_coluna();
     m_state = WAITING_USER;  // estado inicial é WAITING_USER, mas poderia ser outro
     m_ia_player = Player();
-    m_snake = new Snake(m_level->get_init_linha(), m_level->get_init_coluna());
-    m_level->colocar_comida();
+    if (m_ia == "random"){
+        if (m_modo == "pacmaze"){
+            m_pacman = new Pacman(m_level->get_init_linha(), m_level->get_init_coluna());
+        } 
+        else if (m_modo == "snaze"){
+            cout << "teste" << endl;
+        }
+    }
+    m_level->colocar_comida_teste();
 }
 
 void SnakeGame::process_actions() {
@@ -38,7 +47,7 @@ void SnakeGame::process_actions() {
             cin >> std::ws >> m_choice;
             break;
         case WAITING_IA:
-            m_ia_player.find_solution(m_level, m_snake);
+            m_ia_player.find_solution(m_level, m_pacman);
             m_action = m_ia_player.next_move();
             break;
         default:
@@ -55,17 +64,30 @@ void SnakeGame::update() {
             //     m_state = WAITING_USER;
             /*atualiza a posição do Snake de acordo com a escolha*/
             if (m_action == 0) {  // up
-                m_snake->move(-1, 0);
+                m_pacman->set_grafico('v');
+                m_pacman->move(-1, 0);
 
             } else if (m_action == 1) {  // down
-                m_snake->move(1, 0);
+                m_pacman->set_grafico('^');
+                m_pacman->move(1, 0);
             } else if (m_action == 2) {  // right
-                m_snake->move(0, 1);
+                m_pacman->set_grafico('<');
+                m_pacman->move(0, 1);
             } else {  // left
-                m_snake->move(0, -1);
+                m_pacman->set_grafico('>');
+                m_pacman->move(0, -1);
             }
-            if (!m_level->permitido(m_snake->get_pos())) {
+            if (!m_level->permitido(m_pacman->get_pos())) {
                 m_state = LOSE_LIFE;
+            }
+            m_level->verifica_comida(m_pacman->get_pos());
+            if (m_level->verifica_comida(m_pacman->get_pos()) == true){
+                m_level->apagar_comida(m_pacman->get_pos());
+                m_level->colocar_comida();
+                m_pacman->set_m_qnt_comida();
+                if (m_pacman->get_qnt_comida() == m_level->get_comidas()){
+                    m_state = WINNER;
+                }
             }
             // sempre depois de executar "running" uma vez
             // o jogo pergunta para a IA qual sua escolha
@@ -86,9 +108,9 @@ void SnakeGame::update() {
             m_state = RUNNING;  // depois de processar coisas da IA sempre passa para Running
             break;
         case LOSE_LIFE:
-            m_snake->set_vidas(m_snake->get_vidas() - 1);
-            m_snake->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
-            if (m_snake->get_vidas() == 0) {
+            m_pacman->set_vidas(m_pacman->get_vidas() - 1);
+            m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
+            if (m_pacman->get_vidas() == 0) {
                 m_state = GAME_OVER;
                 game_over();
             } else {
@@ -130,18 +152,21 @@ void SnakeGame::render() {
         case RUNNING:
             // desenha todas as linhas do labirinto
             int pos_l, pos_c;
-            pos_l = m_snake->get_pos().first;
-            pos_c = m_snake->get_pos().second;
+            pos_l = m_pacman->get_pos().first;
+            pos_c = m_pacman->get_pos().second;
+            cout << "Vidas: " << m_pacman->mostrar_vidas() << endl;
+            cout << "Comidas: " << m_pacman->get_qnt_comida() << " de " << m_level->get_comidas() << endl;
+            cout << "Linha: " << pos_l << ", "
+                 << "Coluna: " << pos_c << " |*| FrameCount: " << m_frameCount << endl;
             for (int i = 0; i < m_level->get_linhas(); i++) {
                 for (int j = 0; j < m_level->get_colunas(); j++) {
                     if (i == pos_l && j == pos_c)
-                        cout << m_snake->get_grafico();
+                        cout << m_pacman->get_grafico();
                     else
                         cout << m_level->get_maze_element(i, j);
                 }
                 cout << endl;
             }
-            cout << "l,c: " << pos_l << "," << pos_c << " |*| vidas: ♥ " << m_snake->get_vidas() << " fc: " << m_frameCount << endl;
             break;
         case WAITING_USER:
             cout << "Você quer iniciar/continuar o jogo? (s/n)" << endl;
@@ -153,12 +178,15 @@ void SnakeGame::render() {
         case GAME_OVER:
             cout << "O jogo terminou!" << endl;
             break;
+        case WINNER:
+            cout << "Parabéns comeu todas as comidas! Próximo nível!" << endl;
+            break;
     }
     m_frameCount++;
 }
 
 void SnakeGame::game_over() {
-    delete m_snake;
+    delete m_pacman;
     delete m_level;
 }
 
@@ -168,6 +196,6 @@ void SnakeGame::loop() {
         process_actions();
         update();
         render();
-        wait(500);  // espera 1 segundo entre cada frame
+        wait(1000);  // espera 1 segundo entre cada frame
     }
 }
