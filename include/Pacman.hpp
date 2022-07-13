@@ -29,7 +29,9 @@ class Pacman{
 
         void set_grafico(char character);
         
-        void set_m_qnt_comida();
+        void resetar_qnt_comida();
+
+        void comeu();
 
         int get_qnt_comida();
 };

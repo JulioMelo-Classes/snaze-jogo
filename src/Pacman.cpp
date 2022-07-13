@@ -46,7 +46,11 @@ void Pacman::set_grafico(char character) {
     m_grafico = character;
 }
 
-void Pacman::set_m_qnt_comida(){
+void Pacman::resetar_qnt_comida() {
+    m_qnt_comida = 0;
+}
+
+void Pacman::comeu() {
     m_qnt_comida += 1;
 }
 

@@ -13,6 +13,6 @@ class Player{
          * Retorna a próxima ação do jogador um mapeamento de 0-3, representando ir para esquerda, cima, direita, baixo
          * @return a próxima ação do jogador
          **/
-        int next_move();
+        int next_move(Level *level, Pacman *pacman);
 };
 #endif //Player_hpp

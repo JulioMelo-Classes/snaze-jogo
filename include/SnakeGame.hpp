@@ -18,7 +18,7 @@ class SnakeGame {
         WAITING_USER,  //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
         WAITING_IA,    //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
         LOSE_LIFE,     //<! quando perde uma vida entra nesse estado
-        WINNER
+        WINNER         //<! quando o player consegue comer todas as comidas do mapa.
     };
 
    private:
@@ -53,7 +53,7 @@ class SnakeGame {
 
     void carrega_niveis();
 
-    std::vector<std::string> carrega_maze(std::vector<std::vector<std::string>> niveis, int n);
+    std::vector<std::string> carrega_maze(std::vector<std::vector<std::string>> &niveis, int n);
 
    private:
     /**

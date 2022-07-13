@@ -4,10 +4,10 @@
 #include <sstream>
 using namespace std;
 
-Level::Level(vector<string> nivel){
+Level::Level(vector<string> nivel) {
     int lineCount = 0;
-    for (auto line : nivel){
-        if (isdigit(line[0])){
+    for (auto line : nivel) {
+        if (isdigit(line[0])) {
             stringstream ss;
             ss << line;  // Recebe a linha em ss e dps distribui para cada variável
             ss >> m_linhas;
@@ -26,35 +26,35 @@ Level::Level(vector<string> nivel){
     }
 }
 
-void Level::colocar_comida_teste(){
-    m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
-    m_maze[m_init_linha][m_init_coluna+1] = 'F';
+void Level::colocar_comida_teste() {
+    m_pos_comida = make_pair(m_init_linha, m_init_coluna + 2);
+    m_maze[m_init_linha][m_init_coluna + 2] = 'F';
 }
 
 void Level::colocar_comida() {
     while (true) {
         random_device random;
         default_random_engine dre(random());
-        uniform_int_distribution<int> linha(0, m_linhas-1);
-        uniform_int_distribution<int> coluna(0, m_colunas-1);
+        uniform_int_distribution<int> linha(0, m_linhas - 1);
+        uniform_int_distribution<int> coluna(0, m_colunas - 1);
         int linha_comida = linha(dre);
         int coluna_comida = coluna(dre);
         if (get_maze_element(linha_comida, coluna_comida) != '#' || get_maze_element(linha_comida, coluna_comida) != '.') {
-            //m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
+            // m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
             m_pos_comida = make_pair(linha_comida, coluna_comida);
-            //m_maze[m_init_linha][m_init_coluna+1] = 'F';
+            // m_maze[m_init_linha][m_init_coluna+1] = 'F';
             m_maze[linha_comida][coluna_comida] = 'F';
             break;
         }
     }
 }
 
-void Level::apagar_comida(pair<int, int> posicao){
+void Level::apagar_comida(pair<int, int> posicao) {
     m_maze[posicao.first][posicao.second] = ' ';
 }
 
-bool Level::verifica_comida(pair<int, int> posicao){
-    if (posicao == m_pos_comida){
+bool Level::verifica_comida(pair<int, int> posicao) {
+    if (posicao == m_pos_comida) {
         return true;
     }
     return false;
