@@ -103,14 +103,14 @@ void SnakeGame::process_actions() {
                     m_level = new Level(carrega_maze(m_niveis, m_nivel + 1));
                     m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                     m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida();
+                    m_level->colocar_comida_teste();
                     break;
                 } else if (m_decisao_jogador == 2) {
                     // Reiniciar o mesmo nível.
                     delete m_level;
                     m_level = new Level(carrega_maze(m_niveis, m_nivel));
                     m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida();
+                    m_level->colocar_comida_teste();
                     break;
                 } else if (m_decisao_jogador == 3) {
                     // Reiniciar a partir do lv 1.
@@ -118,7 +118,7 @@ void SnakeGame::process_actions() {
                     m_level = new Level(carrega_maze(m_niveis, 0));
                     m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                     m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida();
+                    m_level->colocar_comida_teste();
                     break;
                 } else {
                     cout << "Escolha Inválida." << endl;

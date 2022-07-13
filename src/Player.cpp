@@ -82,7 +82,7 @@ int Player::next_move(Level *level, Pacman *pacman) {
         }
     }
 
-    return aleatorio;
+    return 2;
 }
 
 bool Player::verifica_preso(Level *level, Pacman *pacman) {

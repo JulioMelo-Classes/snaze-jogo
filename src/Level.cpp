@@ -44,6 +44,7 @@ void Level::colocar_comida() {
             m_pos_comida = make_pair(linha_comida, coluna_comida);
             // m_maze[m_init_linha][m_init_coluna+1] = 'F';
             m_maze[linha_comida][coluna_comida] = 'F';
+            m_pos_comida = make_pair(linha_comida, coluna_comida);
             break;
         }
     }
