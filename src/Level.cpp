@@ -4,20 +4,16 @@
 #include <sstream>
 using namespace std;
 
-Level::Level(string level_file) {
-    ifstream levelFile(level_file);
+Level::Level(vector<string> nivel){
     int lineCount = 0;
-    string line;
-    if (levelFile.is_open()) {
-        getline(levelFile, line);
-        // 15 10 4
-        stringstream ss;
-        ss << line;  // Recebe a linha em ss e dps distribui para cada variável
-        ss >> m_linhas;
-        ss >> m_colunas;
-        ss >> m_comidas;
-
-        while (getline(levelFile, line)) {  // pega cada linha do arquivo
+    for (auto line : nivel){
+        if (isdigit(line[0])){
+            stringstream ss;
+            ss << line;  // Recebe a linha em ss e dps distribui para cada variável
+            ss >> m_linhas;
+            ss >> m_colunas;
+            ss >> m_comidas;
+        } else {
             if (line.find("v") != string::npos) {
                 /*encontra a posição inicial de acordo com o mapa*/
                 m_init_linha = lineCount;

@@ -14,7 +14,7 @@ class Level {
     std::vector<std::string> m_maze;
 
    public:
-    Level(std::string level_file);
+    Level(std::vector<std::string> nivel);
 
     int get_init_linha();
     int get_init_coluna();

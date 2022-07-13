@@ -31,11 +31,12 @@ class SnakeGame{
         std::string m_choice; //<! usado na função process_actions para guardar a escolha do usuário
         GameStates m_state; //<! guarda o estado do jogo
         std::string m_levels_file; //<! arquivo com os níveis do jogo
-        std::vector<std::string> m_niveis; //<! vector com os niveis do jogo.
+        std::vector<std::vector<std::string>> m_niveis; //<! vector com os niveis do jogo.
         std::string m_modo; //<! arquivo com os níveis do jogo
         std::string m_ia; //<! arquivo com os níveis do jogo
         Player m_ia_player; //<! instancia da classe Player responsável pela IA do jogo
         int m_action; //<! Representa a ação escolhida pela IA
+        int m_nivel = 0;
     public:
         /**
         * @brief construtor padrão, fique à vontade para adicionar parâmetros se desejar
@@ -46,6 +47,10 @@ class SnakeGame{
         * @brief chamado no main, este loop executa o jogo indefinidamente até que o usuário escolha terminar!
         */
         void loop();
+
+        void carrega_niveis();
+
+        std::vector<std::string> carrega_maze(std::vector<std::vector<std::string>> niveis, int n);
 
     private:
         /**
@@ -72,8 +77,6 @@ class SnakeGame{
         * @brief é chamada quando o jogo termina a fim de destruir/resetar elementos do estado do jogo
         **/
         void game_over();
-
-        void carrega_niveis();
 };
 
 #endif //SnakeGame_hpp

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <thread>  //por causa do sleep
-
+#include <sstream>
 #include "Player.hpp"
 
 #define NC "\e[0m"
@@ -20,20 +20,55 @@ SnakeGame::SnakeGame(string levels, string mode, string ia) {
     m_ia = ia;
     m_choice = "";
     m_frameCount = 0;
+    carrega_niveis();
     initialize_game();
 }
 
 void SnakeGame::carrega_niveis(){
-    for (auto linha : m_levels_file){
-        cout << linha << endl;
+    ifstream levelFile(m_levels_file);
+    int lineCount = 0, linhas, colunas, comidas;
+    string line;
+    vector<string> level;
+    while(!levelFile.eof()){
+        getline(levelFile, line);
+        level.push_back(line);
+        // 15 10 4
+        stringstream ss;
+        ss << line;  // Recebe a linha em ss e dps distribui para cada variável
+        ss >> linhas;
+        ss >> colunas;
+        ss >> comidas;
+
+        if (isdigit(line[0])){
+            lineCount++;
+            for (int i = 0; i < linhas; i++){
+                getline(levelFile, line);
+                level.push_back(line);
+            }
+            m_niveis.push_back(level);
+            level.clear();
+        }
+    }
+}
+
+vector<string> SnakeGame::carrega_maze(vector<vector<string>> niveis, int n) {
+    int count = 0;
+    string vetor;
+    for (auto vetor : niveis){
+        if (count == n){
+            return vetor;
+        }
+        count++;
     }
 }
 
 void SnakeGame::initialize_game() {
-    // carrega o nivel ou os níveis
-    m_level = new Level(m_levels_file);
     // m_l = m_level->get_init_linha();
     // m_c = m_level->get_init_coluna();
+    
+    // carrega o nivel ou os níveis
+
+    m_level = new Level(carrega_maze(m_niveis, m_nivel));
     m_state = WAITING_USER;  // estado inicial é WAITING_USER, mas poderia ser outro
     m_ia_player = Player();
     if (m_ia == "random"){
@@ -92,7 +127,8 @@ void SnakeGame::update() {
             m_level->verifica_comida(m_pacman->get_pos());
             if (m_level->verifica_comida(m_pacman->get_pos()) == true){
                 m_level->apagar_comida(m_pacman->get_pos());
-                m_level->colocar_comida();
+                m_level->colocar_comida_teste();
+                //m_level->colocar_comida();
                 m_pacman->set_m_qnt_comida();
                 if (m_pacman->get_qnt_comida() == m_level->get_comidas()){
                     m_state = WINNER;
@@ -126,6 +162,8 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
             }
             break;
+        case WINNER:
+            m_state = RUNNING;
         default:
             // nada pra fazer aqui
             break;
@@ -202,15 +240,8 @@ void SnakeGame::render() {
             cout << CYN << m_level->get_comidas();
             cout << endl;
             cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
-            for (int i = 0; i < m_level->get_linhas(); i++) {
-                for (int j = 0; j < m_level->get_colunas(); j++) {
-                    if (i == pos_l && j == pos_c){
-                        //cout << NC << m_pacman->get_grafico();
-                    } else {
-                        cout << NC << m_level->get_maze_element(i, j);
-                    }
-                }
-                cout << endl;
+            for (auto item : m_niveis[0]){
+                cout << item << endl;
             }
             cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
             cin.ignore();
@@ -225,6 +256,9 @@ void SnakeGame::render() {
             break;
         case WINNER:
             cout << "Próximo nível!" << endl;
+            delete m_level;
+            //PRÓXIMO NÍVEL
+            m_level = new Level(carrega_maze(m_niveis, m_nivel+1));
             break;
     }
     m_frameCount++;
