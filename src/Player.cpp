@@ -57,6 +57,12 @@ int Player::next_move(Level *level, Pacman *pacman) {
         bool pode = false;
         aleatorio = rand(dre);
 
+        if (verifica_preso(level, pacman)) {
+            // cout << "TÁ PRESO!!" << endl;
+            // cin.ignore();
+            break;
+        }
+
         if (aleatorio == 0) {  // up
             pos.first -= 1;
             pode = level->permitido(pos);
@@ -77,4 +83,30 @@ int Player::next_move(Level *level, Pacman *pacman) {
     }
 
     return aleatorio;
+}
+
+bool Player::verifica_preso(Level *level, Pacman *pacman) {
+    bool pode = false;
+    int posicoes = 0, fix = 0;
+
+    auto pos = pacman->get_pos();
+    pos.first -= 1;
+    level->permitido(pos) ? fix++ : posicoes++;
+
+    pos = pacman->get_pos();
+    pos.first += 1;
+    level->permitido(pos) ? fix++ : posicoes++;
+
+    pos = pacman->get_pos();
+    pos.second += 1;
+    level->permitido(pos) ? fix++ : posicoes++;
+
+    pos = pacman->get_pos();
+    pos.second -= 1;
+    level->permitido(pos) ? fix++ : posicoes++;
+
+    if (posicoes == 4) {
+        return true;
+    }
+    return pode;
 }

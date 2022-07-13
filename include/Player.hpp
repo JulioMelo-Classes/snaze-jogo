@@ -14,5 +14,7 @@ class Player{
          * @return a próxima ação do jogador
          **/
         int next_move(Level *level, Pacman *pacman);
+
+        bool verifica_preso(Level *level, Pacman *pacman);
 };
 #endif //Player_hpp
