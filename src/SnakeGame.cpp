@@ -7,6 +7,11 @@
 
 #include "Player.hpp"
 
+#define NC "\e[0m"
+#define RED "\e[0;31m"
+#define GRN "\e[0;32m"
+#define CYN "\e[0;36m"
+
 using namespace std;
 
 SnakeGame::SnakeGame(string levels, string mode, string ia) {
@@ -18,9 +23,14 @@ SnakeGame::SnakeGame(string levels, string mode, string ia) {
     initialize_game();
 }
 
+void SnakeGame::carrega_niveis(){
+    for (auto linha : m_levels_file){
+        cout << linha << endl;
+    }
+}
+
 void SnakeGame::initialize_game() {
     // carrega o nivel ou os níveis
-
     m_level = new Level(m_levels_file);
     // m_l = m_level->get_init_linha();
     // m_c = m_level->get_init_coluna();
@@ -43,8 +53,7 @@ void SnakeGame::process_actions() {
     // no caso deste trabalho temos 2 tipos de entrada, uma que vem da classe Player, como resultado do processamento da IA
     // outra vem do próprio usuário na forma de uma entrada do teclado.
     switch (m_state) {
-        case WAITING_USER:  // o jogo bloqueia aqui esperando o usuário digitar a escolha dele
-            cin >> std::ws >> m_choice;
+        case WAITING_USER:  // o jogo bloqueia aqui esperando o usuário digitar a escolha dele 
             break;
         case WAITING_IA:
             m_ia_player.find_solution(m_level, m_pacman);
@@ -97,7 +106,7 @@ void SnakeGame::update() {
         case WAITING_USER:  // se o jogo estava esperando pelo usuário então ele testa qual a escolha que foi feita
             if (m_choice == "n") {
                 m_state = GAME_OVER;
-                game_over();
+                game_over(); 
             } else {
                 // pode fazer alguma coisa antes de fazer isso aqui
                 m_state = WAITING_IA;
@@ -154,10 +163,8 @@ void SnakeGame::render() {
             int pos_l, pos_c;
             pos_l = m_pacman->get_pos().first;
             pos_c = m_pacman->get_pos().second;
-            cout << "Vidas: " << m_pacman->mostrar_vidas() << endl;
+            cout << "Vidas: " << m_pacman->mostrar_vidas() << " | ";
             cout << "Comidas: " << m_pacman->get_qnt_comida() << " de " << m_level->get_comidas() << endl;
-            cout << "Linha: " << pos_l << ", "
-                 << "Coluna: " << pos_c << " |*| FrameCount: " << m_frameCount << endl;
             for (int i = 0; i < m_level->get_linhas(); i++) {
                 for (int j = 0; j < m_level->get_colunas(); j++) {
                     if (i == pos_l && j == pos_c)
@@ -167,9 +174,47 @@ void SnakeGame::render() {
                 }
                 cout << endl;
             }
+            cout << "Linha: " << pos_l << " | ";
+            cout << "Coluna: " << pos_c << " | FrameCount: " << m_frameCount << endl;
             break;
         case WAITING_USER:
-            cout << "Você quer iniciar/continuar o jogo? (s/n)" << endl;
+            //carrega_niveis();
+            cout << GRN " ---> Welcome to the classic Snake Game <--- " << endl;
+            cout << GRN "          copyright DIMAp/UFRN 2017 " << endl;
+            cout << GRN "-------------------------------------------------------" << endl;
+            cout << GRN " Levels loaded: ";
+            cout << RED "3";
+            cout << GRN " | Snake lives: ";
+            cout << RED "5";
+            cout << GRN " | Apples to eat: ";
+            cout << RED << m_level->get_comidas();
+            cout << endl;
+            cout << GRN " Clear all levels to win the game. Good luck!!! " << endl;
+            cout << GRN "-------------------------------------------------------" << endl;
+            cout << NC ">>> Press <ENTER> to start the game!" << endl;
+            cout << endl;
+            cout << GRN "Lives: ";
+            cout << CYN << m_pacman->mostrar_vidas();
+            cout << GRN " | Score: ";
+            cout << GRN " | Food eaten: ";
+            cout << CYN << m_pacman->get_qnt_comida();
+            cout << GRN " de ";
+            cout << CYN << m_level->get_comidas();
+            cout << endl;
+            cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
+            for (int i = 0; i < m_level->get_linhas(); i++) {
+                for (int j = 0; j < m_level->get_colunas(); j++) {
+                    if (i == pos_l && j == pos_c){
+                        //cout << NC << m_pacman->get_grafico();
+                    } else {
+                        cout << NC << m_level->get_maze_element(i, j);
+                    }
+                }
+                cout << endl;
+            }
+            cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
+            cin.ignore();
+            m_choice = "s";
             break;
         case LOSE_LIFE:
             cout << "\nPerdeu uma vida!!" << endl;
@@ -179,7 +224,7 @@ void SnakeGame::render() {
             cout << "O jogo terminou!" << endl;
             break;
         case WINNER:
-            cout << "Parabéns comeu todas as comidas! Próximo nível!" << endl;
+            cout << "Próximo nível!" << endl;
             break;
     }
     m_frameCount++;

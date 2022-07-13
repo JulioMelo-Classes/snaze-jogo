@@ -43,7 +43,7 @@ void Level::colocar_comida() {
         uniform_int_distribution<int> coluna(0, m_colunas-1);
         int linha_comida = linha(dre);
         int coluna_comida = coluna(dre);
-        if (get_maze_element(linha_comida, coluna_comida) != '#') {
+        if (get_maze_element(linha_comida, coluna_comida) != '#' || get_maze_element(linha_comida, coluna_comida) != '.') {
             //m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
             m_pos_comida = make_pair(linha_comida, coluna_comida);
             //m_maze[m_init_linha][m_init_coluna+1] = 'F';
