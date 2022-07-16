@@ -36,8 +36,8 @@ void Level::colocar_comida() {
     random_device random2;
     default_random_engine drl(random1());
     default_random_engine drc(random2());
-    uniform_int_distribution<int> linha(1, m_linhas-1);
-    uniform_int_distribution<int> coluna(1, m_colunas-1);
+    uniform_int_distribution<int> linha(1, m_linhas - 1);
+    uniform_int_distribution<int> coluna(1, m_colunas - 1);
     while (true) {
         int linha_comida = linha(drl);
         int coluna_comida = coluna(drc);
@@ -77,10 +77,6 @@ pair<int, int> Level::get_pos_comida() {
 
 int Level::get_comidas() {
     return m_comidas;
-}
-
-void Level::set_comidas(int comidas) {
-    m_comidas = comidas;
 }
 
 int Level::get_linhas() {
