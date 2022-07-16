@@ -32,14 +32,16 @@ void Level::colocar_comida_teste() {
 }
 
 void Level::colocar_comida() {
+    random_device random1;
+    random_device random2;
+    default_random_engine drl(random1());
+    default_random_engine drc(random2());
+    uniform_int_distribution<int> linha(1, m_linhas-1);
+    uniform_int_distribution<int> coluna(1, m_colunas-1);
     while (true) {
-        random_device random;
-        default_random_engine dre(random());
-        uniform_int_distribution<int> linha(0, m_linhas - 1);
-        uniform_int_distribution<int> coluna(0, m_colunas - 1);
-        int linha_comida = linha(dre);
-        int coluna_comida = coluna(dre);
-        if (get_maze_element(linha_comida, coluna_comida) != '#' || get_maze_element(linha_comida, coluna_comida) != '.') {
+        int linha_comida = linha(drl);
+        int coluna_comida = coluna(drc);
+        if ((get_maze_element(linha_comida, coluna_comida) != '#') || (get_maze_element(linha_comida, coluna_comida) != '.')) {
             // m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
             m_pos_comida = make_pair(linha_comida, coluna_comida);
             // m_maze[m_init_linha][m_init_coluna+1] = 'F';

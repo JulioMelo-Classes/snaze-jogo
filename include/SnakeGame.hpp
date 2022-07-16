@@ -18,17 +18,19 @@ class SnakeGame {
         WAITING_USER,  //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
         WAITING_IA,    //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
         LOSE_LIFE,     //<! quando perde uma vida entra nesse estado
-        WINNER         //<! quando o player consegue comer todas as comidas do mapa.
+        WINNER,        //<! quando o player consegue comer todas as comidas do mapa.
+        NEXT_LEVEL
     };
 
    private:
     Level *m_level;  //<! representa o level atual
     Pacman *m_pacman;
-
+    int m_count1 = 0;
+    int m_count2 = 1;
     // int m_l, m_c; //representa a posição do Snake no exemplo da sala.
     //<! atributos adicione outros se quiser
     // std::vector<std::string> m_maze; //<! vector contendo o labirinto atual, pode ser interpretado como uma matriz
-    int m_frameCount;                                //<! contador de frames, usado apenas como exemplo
+    int m_frameCount = 0;                                //<! contador de frames, usado apenas como exemplo
     std::string m_choice;                            //<! usado na função process_actions para guardar a escolha do usuário
     GameStates m_state;                              //<! guarda o estado do jogo
     std::string m_levels_file;                       //<! arquivo com os níveis do jogo

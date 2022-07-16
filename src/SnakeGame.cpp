@@ -79,7 +79,6 @@ void SnakeGame::initialize_game() {
             cout << "teste" << endl;
         }
     }
-    m_level->colocar_comida_teste();
 }
 
 void SnakeGame::process_actions() {
@@ -93,38 +92,7 @@ void SnakeGame::process_actions() {
         case WAITING_IA:
             m_ia_player.find_solution(m_level, m_pacman);
             m_action = m_ia_player.next_move(m_level, m_pacman);
-            break;
-        case WINNER:
-            while (1) {
-                cin >> m_decisao_jogador;
-                if (m_decisao_jogador == 1) {
-                    // Próximo Nível.
-                    delete m_level;
-                    m_level = new Level(carrega_maze(m_niveis, m_nivel + 1));
-                    m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
-                    m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida_teste();
-                    break;
-                } else if (m_decisao_jogador == 2) {
-                    // Reiniciar o mesmo nível.
-                    delete m_level;
-                    m_level = new Level(carrega_maze(m_niveis, m_nivel));
-                    m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida_teste();
-                    break;
-                } else if (m_decisao_jogador == 3) {
-                    // Reiniciar a partir do lv 1.
-                    delete m_level;
-                    m_level = new Level(carrega_maze(m_niveis, 0));
-                    m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
-                    m_pacman->resetar_qnt_comida();
-                    m_level->colocar_comida_teste();
-                    break;
-                } else {
-                    cout << "Escolha Inválida." << endl;
-                }
-            }
-            break;
+            break;       
         default:
             // nada pra fazer aqui
             break;
@@ -155,14 +123,21 @@ void SnakeGame::update() {
             if (!m_level->permitido(m_pacman->get_pos())) {
                 m_state = LOSE_LIFE;
             }
-            m_level->verifica_comida(m_pacman->get_pos());
+            if (m_count1 == 0){ 
+                m_level->colocar_comida(); // Coloca comida em um local aleatório no mapa.
+                m_count1++;
+            }
             if (m_level->verifica_comida(m_pacman->get_pos()) == true) {
+                m_pacman->comeu();
                 m_level->apagar_comida(m_pacman->get_pos());
                 // m_level->colocar_comida_teste();
-                m_level->colocar_comida();
-                m_pacman->comeu();
-                if (m_pacman->get_qnt_comida() == m_level->get_comidas()) {
-                    m_state = WINNER;
+                m_count1 = 0; // Após comer, reseta o contador de verificação e entra na condição acima novamente.
+                if (m_pacman->get_qnt_comida() == m_level->get_comidas()) { // Verifica se comeu.
+                    if (m_niveis.size() == m_count2){ //Verifica se a quantidade de mapas corresponde ao contador de mapas concluídos.
+                        m_state = WINNER; //Se sim, acabou o jogo e você ganhou.
+                    } else {
+                        m_state = NEXT_LEVEL; //Se não, próximo mapa.
+                    }
                 }
             }
             // sempre depois de executar "running" uma vez
@@ -193,8 +168,45 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
             }
             break;
+        case NEXT_LEVEL:
+            if (m_decisao_jogador == 1) {
+                // Próximo Nível.
+                m_count2++; //Atualiza contador de mapas concluídos.
+                delete m_level;
+                m_nivel += 1; //Incrementa o contador de niveis, para ir para o próximo mapa.
+                m_level = new Level(carrega_maze(m_niveis, m_nivel));
+                m_ia_player = Player();
+                m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
+                m_pacman->resetar_qnt_comida();
+                m_state = RUNNING;
+                break;
+            } else if (m_decisao_jogador == 2) {
+                // Reiniciar o mesmo nível.
+                delete m_level;
+                m_level = new Level(carrega_maze(m_niveis, m_nivel));
+                m_ia_player = Player();
+                m_pacman->resetar_qnt_comida();
+                m_state = RUNNING;
+                break;
+            } else if (m_decisao_jogador == 3) {
+                // Reiniciar a partir do lv 1.
+                m_count2 = 1; // Reinicia o contador de mapas concluídos.
+                delete m_level;
+                m_nivel = 0; // Zera o nível, 0 = primeiro mapa.
+                m_level = new Level(carrega_maze(m_niveis, m_nivel));
+                m_ia_player = Player();
+                m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
+                m_pacman->resetar_qnt_comida();
+                m_state = RUNNING;
+                break;
+            } else {
+                cout << "Escolha Inválida." << endl;
+                m_state = NEXT_LEVEL;
+            }
+            break;
         case WINNER:
-            m_state = RUNNING;
+            exit(-1); //Ganhou.
+            break;
         default:
             // nada pra fazer aqui
             break;
@@ -225,6 +237,7 @@ void clearScreen() {
 
 void SnakeGame::render() {
     clearScreen();
+    int aux = 0;
     switch (m_state) {
         case WAITING_IA:
         case RUNNING:
@@ -268,7 +281,10 @@ void SnakeGame::render() {
             cout << endl;
             cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
             for (auto item : m_niveis[0]) {
-                cout << item << endl;
+                aux++;
+                if (aux > 1){
+                    cout << item << endl;
+                }
             }
             cout << GRN "¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯" << endl;
             cin.ignore();
@@ -281,11 +297,19 @@ void SnakeGame::render() {
         case GAME_OVER:
             cout << "O jogo terminou!" << endl;
             break;
-        case WINNER:
-            cout << "Você conseguiu comer todos as comidas.\nPróximo nível!!!" << endl;
+        case NEXT_LEVEL:
+            cout << "Parabéns!!!\nVocê conseguiu comer todos as comidas." << endl;
+            cout << endl;
             cout << "[1] Ir para o próximo nível." << endl;
             cout << "[2] Reiniciar este nível." << endl;
             cout << "[3] Reiniciar o jogo a partir do nível 1." << endl;
+            cout << endl;
+            cout << "Escolha uma opção: ";
+            cin >> m_decisao_jogador;
+            break;
+        case WINNER:
+            cout << "Parabéns, você conseguiu passar por todos os níveis!!!" << endl;
+            cout << "Seu score: 100.000.000.000" << endl;
             break;
     }
     m_frameCount++;
@@ -302,6 +326,6 @@ void SnakeGame::loop() {
         process_actions();
         update();
         render();
-        wait(300);  // espera 1 segundo entre cada frame
+        wait(50);  // espera 1 segundo entre cada frame
     }
 }
