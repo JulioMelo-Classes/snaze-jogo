@@ -27,6 +27,10 @@ SnakeGame::SnakeGame(string levels, string mode, string ia) {
 
 void SnakeGame::carrega_niveis() {
     ifstream levelFile(m_levels_file);
+    if(!levelFile.is_open()) {
+        cout << "Erro! Arquivo inexistente." << endl;
+        exit(-1);
+    }
     int lineCount = 0, linhas, colunas, comidas;
     string line;
     vector<string> level;

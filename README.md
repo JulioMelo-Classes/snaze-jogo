@@ -10,11 +10,7 @@
 - [🗺️ Mapas](#️-mapas)
   - [🚧🚧 EM DESENVOLVIMENTO 🚧🚧](#-em-desenvolvimento-)
 - [🧪 Validações e testes](#-validações-e-testes)
-  - [🚧🚧 EM DESENVOLVIMENTO 🚧🚧](#-em-desenvolvimento--1)
-    - [Verificação de caracteres especiais](#verificação-de-caracteres-especiais)
-    - [Verificação de peso negativo](#verificação-de-peso-negativo)
-    - [Verificação de palavra vazia](#verificação-de-palavra-vazia)
-    - [Verificação de peso vazio](#verificação-de-peso-vazio)
+    - [Teste de colisão com mapa](#teste-de-colisão-com-mapa)
     - [Verificação caso o arquivo não exista](#verificação-caso-o-arquivo-não-exista)
 - [🤝 Colaboradores](#-colaboradores)
 - [🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧](#)
@@ -95,45 +91,22 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 </br>
 
 # 🧪 Validações e testes
-Testes para verificar se a base de dados está em conformidade para ser utilizada pelo programa.</br>
 <i>Utilize os comandos abaixo no terminal.</i>
 
-## 🚧🚧 EM DESENVOLVIMENTO 🚧🚧
-### Verificação de caracteres especiais
+
+### Teste de colisão com mapa
+`Simulação de mapa onde o jogador está preso e inevitavelmente irá colidir em alguma direção.`
   - ```
-    ./words_complete_correct ../data/testes/teste_caractere.txt
+    ./snaze ../data/testes/testeColisao.txt -mode pacmaze -ia random
     ```
-  - Saída esperada **`Erro! Caractere inválido & na linha 2.`**
 
-</br>
-
-### Verificação de peso negativo
-  - ```
-    ./words_complete_correct ../data/testes/teste_negativo.txt
-    ```
-  - Saída esperada **`Erro! Peso negativo na linha 3.`**
-
-</br>
-
-### Verificação de palavra vazia
-  - ```
-    ./words_complete_correct ../data/testes/teste_vazio.txt
-    ```
-  - Saída esperada **`Erro! Palavra vazia na linha 4.`**
-
-</br>
-
-### Verificação de peso vazio
-  - ```
-    ./words_complete_correct ../data/testes/teste_peso_vazio.txt
-    ```
-  - Saída esperada **`Erro! Peso vazio na linha 3.`**
+<img src="https://user-images.githubusercontent.com/71523376/179371880-118e02c3-1c0c-4595-b81c-33644349864a.png" width="150px">
 
 </br>
 
 ### Verificação caso o arquivo não exista
   - ```
-    ./words_complete_correct ../data/testes/teste_inexistente.txt
+    ./snaze ../data/testes/inexistente.txt -mode pacmaze -ia random
     ```
   - Saída esperada **`Erro! Arquivo inexistente.`**
 
