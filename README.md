@@ -1,6 +1,5 @@
 ### Sumário
 - [🐍 Introdução 🐍](#-introdução-)
-    - [O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90 com os celulares da Nokia que vinham com o jogo instalado. Aqui tentamos implementar o jogo da cobrinha, porém, com a cobra presa em um labirinto e sendo controlada por uma IA.](#o-programa-é-uma-simulação-do-jogo-da-cobrinha-jogo-muito-famoso-nos-anos-90-com-os-celulares-da-nokia-que-vinham-com-o-jogo-instalado-aqui-tentamos-implementar-o-jogo-da-cobrinha-porém-com-a-cobra-presa-em-um-labirinto-e-sendo-controlada-por-uma-ia)
   - [Pacman](#pacman)
   - [Snake](#snake)
 - [⚙️ Requisitos](#️-requisitos)
@@ -23,7 +22,7 @@
 </br>
 
 # 🐍 Introdução 🐍
-### O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90 com os celulares da Nokia que vinham com o jogo instalado. Aqui tentamos implementar o jogo da cobrinha, porém, com a cobra presa em um labirinto e sendo controlada por uma IA.
+O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90 com os celulares da Nokia que vinham com o jogo instalado. Aqui tentamos implementar o jogo da cobrinha, porém, com a cobra presa em um labirinto e sendo controlada por uma IA.
 ###
 
 ## Pacman
