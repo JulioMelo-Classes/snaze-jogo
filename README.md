@@ -56,7 +56,14 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
     <img src="https://img.shields.io/badge/-GCC %20-A42E2B?logo=gnu&style=for-the-badge" width="140" height="50" alt="GCC"/>
 ***
 ## Como rodar
-   - ### Para rodar o programa utilize os comandos no terminal na pasta raíz do projeto:
+  - ### Tipos de Jogos 
+    Há 2 escolhas de tipos de simulação, na flag "-mode" poderá ser escolhido "snaze" ou "pacmaze". Na flag "-ia" poderá ser escolhido "random" ou "find".
+
+    O "**pacmaze**" é uma versão mais simples do programa, nele não há uma cobra, mas sim um PacMan.
+
+    A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.
+
+  - ### Para rodar o programa utilize os comandos no terminal na pasta raíz do projeto:
   &emsp; &emsp; 👇
   1. ```
       mkdir build
@@ -71,10 +78,13 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
       cmake --build .
      ```
   5. ```
-      ./snaze ../data/maze2.txt pacmaze random     
+      ./snaze ../data/maze2.txt -mode pacmaze -ia random    
      ```
-
   &emsp; &emsp; 👆
+
+
+   
+
 </br>
 
 </br>
