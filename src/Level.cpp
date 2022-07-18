@@ -50,6 +50,18 @@ void Level::colocar_comida() {
     }
 }
 
+void Level::comeu_pontos() {
+    m_pontuacao = m_pontuacao + 10;
+}
+
+int Level::get_pontos() {
+    return m_pontuacao;
+}
+
+void Level::resetar_pontos() {
+    m_pontuacao = 0;
+}
+
 void Level::apagar_comida(pair<int, int> posicao) {
     m_maze[posicao.first][posicao.second] = ' ';
 }
@@ -69,9 +81,9 @@ int Level::get_init_coluna() {
     return m_init_coluna;
 }
 
-// pair<int, int> Level::get_pos_comida() {
-//     return m_pos_comida;
-// }
+pair<int, int> Level::get_pos_comida() {
+    return m_pos_comida;
+}
 
 int Level::get_comidas() {
     return m_comidas;

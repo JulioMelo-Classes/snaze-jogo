@@ -123,14 +123,15 @@ void SnakeGame::update() {
                 m_state = LOSE_LIFE;
             }
             if (m_count1 == 0) {
-                // m_level->colocar_comida_teste(); // FUNÇÃO DE TESTE
+                // m_level->colocar_comida_teste();  // FUNÇÃO DE TESTE
                 m_level->colocar_comida();  // Coloca comida em um local aleatório no mapa.
                 m_count1++;
             }
             if (m_level->verifica_comida(m_pacman->get_pos()) == true) {
                 m_pacman->comeu();
+                m_level->comeu_pontos();
                 m_level->apagar_comida(m_pacman->get_pos());
-                m_level->colocar_comida_teste();                             // FUNÇÃO DE TESTE
+                // m_level->colocar_comida_teste();                             // FUNÇÃO DE TESTE
                 m_count1 = 0;                                                // Após comer, reseta o contador de verificação e entra na condição acima novamente.
                 if (m_pacman->get_qnt_comida() == m_level->get_comidas()) {  // Verifica se comeu.
                     if (m_niveis.size() == m_count2) {                       // Verifica se a quantidade de mapas corresponde ao contador de mapas concluídos.
@@ -159,6 +160,7 @@ void SnakeGame::update() {
             m_state = RUNNING;  // depois de processar coisas da IA sempre passa para Running
             break;
         case LOSE_LIFE:
+            m_level->resetar_pontos();
             m_pacman->set_vidas(m_pacman->get_vidas() - 1);
             m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
             if (m_pacman->get_vidas() == 0) {
@@ -171,6 +173,8 @@ void SnakeGame::update() {
         case NEXT_LEVEL:
             if (m_decisao_jogador == 1) {
                 // Próximo Nível.
+                m_pontos_totais = m_level->get_pontos();
+                // m_level->resetar_pontos();
                 m_count2++;  // Atualiza contador de mapas concluídos.
                 delete m_level;
                 m_nivel += 1;  // Incrementa o contador de niveis, para ir para o próximo mapa.
@@ -241,12 +245,25 @@ void SnakeGame::render() {
     switch (m_state) {
         case WAITING_IA:
         case RUNNING:
+            cout << GRN "Lives: ";
+            cout << RED << m_pacman->mostrar_vidas();
+            cout << GRN " | Score: ";
+            cout << CYN << m_level->get_pontos() << " / " << m_pontos_totais;
+            cout << GRN " | Apples eaten: ";
+            cout << CYN << m_pacman->get_qnt_comida();
+            cout << GRN " of ";
+            cout << CYN << m_level->get_comidas() << endl;
             for (int i = 0; i < m_level->get_linhas(); i++) {
                 for (int j = 0; j < m_level->get_colunas(); j++) {
-                    if (i == m_pacman->get_pos().first && j == m_pacman->get_pos().second)
-                        cout << m_pacman->get_grafico();
-                    else
-                        cout << m_level->get_maze_element(i, j);
+                    if (i == m_pacman->get_pos().first && j == m_pacman->get_pos().second) {
+                        cout << RED << m_pacman->get_grafico();
+                    } else {
+                        if (m_level->get_maze_element(i, j) == '*') {
+                            cout << GRN << m_level->get_maze_element(i, j);
+                        } else {
+                            cout << NC << m_level->get_maze_element(i, j);
+                        }
+                    }
                 }
                 cout << endl;
             }
@@ -259,8 +276,8 @@ void SnakeGame::render() {
             cout << RED << m_niveis.size();
             cout << GRN " | Snake lives: ";
             cout << RED << m_pacman->get_vidas();
-            cout << GRN " | Apples to eat: ";
-            cout << RED << m_level->get_comidas();
+            // cout << GRN " | Apples to eat: ";
+            // cout << RED << m_level->get_comidas();
             cout << endl;
             cout << GRN " Clear all levels to win the game. Good luck!!! " << endl;
             cout << GRN "-------------------------------------------------------" << endl;
@@ -269,6 +286,7 @@ void SnakeGame::render() {
             cout << GRN "Lives: ";
             cout << CYN << m_pacman->mostrar_vidas();
             cout << GRN " | Score: ";
+            cout << CYN << m_level->get_pontos() << " / " << m_pontos_totais;
             cout << GRN " | Apples eaten: ";
             cout << CYN << m_pacman->get_qnt_comida();
             cout << GRN " of ";
@@ -307,7 +325,7 @@ void SnakeGame::render() {
             cout << "Seu score: 100.000.000.000" << endl;
             break;
     }
-    cout << " FRAME COUNT >> " << m_frameCount << endl;
+    cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
 }
 

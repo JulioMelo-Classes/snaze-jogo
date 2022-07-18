@@ -9,6 +9,7 @@ class Level {
    private:
     int m_linhas, m_colunas, m_comidas;  //<! Variáveis que armazenam as informações iniciais de um mapa.
     int m_init_linha, m_init_coluna;     //<! Posições iniciais do player no mapa.
+    int m_pontuacao = 0;                 //<! Pontos que o jogador fez ao comer as comidas.
     std::pair<int, int> m_pos_comida;    //<! Posição da comida no mapa.
     std::vector<std::string> m_maze;     //<! O próprio mapa, construído com base em um arquivo .txt.
 
@@ -26,9 +27,24 @@ class Level {
     int get_init_coluna();
 
     /**
+     * @brief Ocorre sempre que o jogador comer uma comida, aumenta a sua pontuação.
+     */
+    void comeu_pontos();
+
+    /**
+     * @brief Retorna a quantidade de pontos do jogador naquele nível.
+     */
+    int get_pontos();
+
+    /**
+     * @brief Reseta a quantidade de pontos do jogador naquele nível, ocorre quando colide.
+     */
+    void resetar_pontos();
+
+    /**
      * @brief Retorna a posição da comida em linha e coluna no mapa.
      */
-    // std::pair<int, int> get_pos_comida();
+    std::pair<int, int> get_pos_comida();
 
     /**
      * @brief Quantidade de comidas totais necessárias para completar aquele mapa.

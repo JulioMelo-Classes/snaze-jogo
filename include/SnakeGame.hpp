@@ -33,6 +33,7 @@ class SnakeGame {
     int m_decisao_jogador;                           //<! Representa a escolha do jogador após conseguir todas as comidas.
     int m_action;                                    //<! Representa a ação escolhida pela IA
     int m_nivel = 0;                                 //<! Posição do mapa no vetor com todos os mapas.
+    int m_pontos_totais = 0;                         //<! Quantidade de pontos da partida inteira.
     std::string m_choice;                            //<! usado na função process_actions para guardar a escolha do usuário
     std::string m_levels_file;                       //<! arquivo com os níveis do jogo
     std::string m_modo;                              //<! arquivo com os níveis do jogo
