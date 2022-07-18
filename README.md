@@ -24,6 +24,7 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 
 ## Pacman
  * Uma das primeiras etapas foi implementar as mecânicas de outro jogo bem famoso, o "Pac-Man". 
+  O objetivo da maioria dos jogos da série é percorrer um labirinto, comendo pontos, pontos energizantes e frutas e fugindo de quatro fantasmas, chamados Blinky, Pinky, Inky e Clyde.
 
 <p align="center">
     <img src="https://play-lh.googleusercontent.com/V-lvUzA5kK0Xw3wdg8Ct3vfIMXUX5vXYcNLPmudaZ-eyQjedYz-luqIuLmJO6KodE0Y" width="500">
