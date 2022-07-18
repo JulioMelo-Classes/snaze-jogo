@@ -123,8 +123,8 @@ void SnakeGame::update() {
                 m_state = LOSE_LIFE;
             }
             if (m_count1 == 0) {
-                // m_level->colocar_comida_teste();  // FUNÇÃO DE TESTE
-                m_level->colocar_comida();  // Coloca comida em um local aleatório no mapa.
+                m_level->colocar_comida_teste();  // FUNÇÃO DE TESTE
+                // m_level->colocar_comida();  // Coloca comida em um local aleatório no mapa.
                 m_count1++;
             }
             if (m_level->verifica_comida(m_pacman->get_pos()) == true) {
@@ -173,7 +173,7 @@ void SnakeGame::update() {
         case NEXT_LEVEL:
             if (m_decisao_jogador == 1) {
                 // Próximo Nível.
-                m_pontos_totais = m_level->get_pontos();
+                m_pontos_totais += m_level->get_pontos();
                 // m_level->resetar_pontos();
                 m_count2++;  // Atualiza contador de mapas concluídos.
                 delete m_level;
@@ -189,14 +189,16 @@ void SnakeGame::update() {
                 delete m_level;
                 m_level = new Level(carrega_maze(m_niveis, m_nivel));
                 m_ia_player = Player();
+                m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                 m_pacman->resetar_qnt_comida();
                 m_state = RUNNING;
                 break;
             } else if (m_decisao_jogador == 3) {
                 // Reiniciar a partir do lv 1.
-                m_count2 = 1;  // Reinicia o contador de mapas concluídos.
+                m_pontos_totais = 0;
                 delete m_level;
-                m_nivel = 0;  // Zera o nível, 0 = primeiro mapa.
+                m_count2 = 1;  // Reinicia o contador de mapas concluídos.
+                m_nivel = 0;   // Zera o nível, 0 = primeiro mapa.
                 m_level = new Level(carrega_maze(m_niveis, m_nivel));
                 m_ia_player = Player();
                 m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));

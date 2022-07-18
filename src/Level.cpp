@@ -51,7 +51,7 @@ void Level::colocar_comida() {
 }
 
 void Level::comeu_pontos() {
-    m_pontuacao = m_pontuacao + 10;
+    m_pontuacao += 10;
 }
 
 int Level::get_pontos() {
