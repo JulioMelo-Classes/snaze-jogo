@@ -8,12 +8,13 @@
     - [Requisítos de compilação](#requisítos-de-compilação)
   - [Como rodar](#como-rodar)
 - [🗺️ Mapas](#️-mapas)
-  - [🚧🚧 EM DESENVOLVIMENTO 🚧🚧](#-em-desenvolvimento-)
+    - [Mapa 1: <br>](#mapa-1-)
+    - [Mapa 2: <br>](#mapa-2-)
+    - [Mapa 3: <br>](#mapa-3-)
 - [🧪 Validações e testes](#-validações-e-testes)
     - [Teste de colisão com mapa](#teste-de-colisão-com-mapa)
     - [Verificação caso o arquivo não exista](#verificação-caso-o-arquivo-não-exista)
 - [🤝 Colaboradores](#-colaboradores)
-- [🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧](#)
 ***
 </br>
 
@@ -74,7 +75,7 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
       cmake --build .
      ```
   5. ```
-      ./snaze ../data/maze2.txt -mode pacmaze -ia random    
+      ./snaze ../data/mazes.txt -mode pacmaze -ia random    
      ```
   &emsp; &emsp; 👆
 
@@ -86,7 +87,16 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 </br>
 
 # 🗺️ Mapas
-## 🚧🚧 EM DESENVOLVIMENTO 🚧🚧
+ - O "v" aponta a posição inicia do jogador no mapa. <br>
+ - Cada mapa tem uma quantidade de comidas diferentes.
+### Mapa 1: <br>
+<img src="https://user-images.githubusercontent.com/71523376/179438513-8409cd51-b262-46b6-8eeb-e6c88be26291.png" width="15%">
+
+### Mapa 2: <br>
+<img src="https://user-images.githubusercontent.com/71523376/179438542-7e07cea6-fab9-4b61-8d5c-3b6b445a8400.png" width="15%">
+
+### Mapa 3: <br>
+<img src="https://user-images.githubusercontent.com/71523376/179438563-f9fe6dfb-9997-4361-9277-6c019a55d416.png" width="30%">
 
 </br>
 
@@ -117,4 +127,3 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
   * [Lucas Morais](https://github.com/lucas-morais27)
   
 ***
-# 🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧🚧
