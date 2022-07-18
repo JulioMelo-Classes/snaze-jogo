@@ -28,7 +28,7 @@ Level::Level(vector<string> nivel) {
 
 void Level::colocar_comida_teste() {
     m_pos_comida = make_pair(m_init_linha, m_init_coluna + 2);
-    m_maze[m_init_linha][m_init_coluna + 2] = 'F';
+    m_maze[m_init_linha][m_init_coluna + 2] = '*';
 }
 
 void Level::colocar_comida() {
@@ -42,10 +42,8 @@ void Level::colocar_comida() {
         int linha_comida = linha(drl);
         int coluna_comida = coluna(drc);
         if ((get_maze_element(linha_comida, coluna_comida) != '#') && (get_maze_element(linha_comida, coluna_comida) != '.')) {
-            // m_pos_comida = make_pair(m_init_linha, m_init_coluna+1);
             m_pos_comida = make_pair(linha_comida, coluna_comida);
-            // m_maze[m_init_linha][m_init_coluna+1] = 'F';
-            m_maze[linha_comida][coluna_comida] = 'F';
+            m_maze[linha_comida][coluna_comida] = '*';
             m_pos_comida = make_pair(linha_comida, coluna_comida);
             break;
         }

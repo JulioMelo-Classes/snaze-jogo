@@ -235,7 +235,7 @@ void clearScreen() {
 
 void SnakeGame::render() {
     clearScreen();
-    int aux = 0;
+    int aux = 0, fix_render_start;
     switch (m_state) {
         case WAITING_IA:
         case RUNNING:
@@ -255,12 +255,12 @@ void SnakeGame::render() {
             break;
         case WAITING_USER:
             cout << GRN " ---> Welcome to the classic Snake Game <--- " << endl;
-            cout << GRN "          copyright DIMAp/UFRN 2017 " << endl;
+            // cout << GRN "          copyright DIMAp/UFRN 2017 " << endl;
             cout << GRN "-------------------------------------------------------" << endl;
             cout << GRN " Levels loaded: ";
-            cout << RED "3";
+            cout << RED << m_niveis.size();
             cout << GRN " | Snake lives: ";
-            cout << RED "5";
+            cout << RED << m_pacman->get_vidas();
             cout << GRN " | Apples to eat: ";
             cout << RED << m_level->get_comidas();
             cout << endl;
@@ -309,6 +309,7 @@ void SnakeGame::render() {
             cout << "Seu score: 100.000.000.000" << endl;
             break;
     }
+    cout << " FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
 }
 
