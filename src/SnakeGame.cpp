@@ -322,7 +322,7 @@ void SnakeGame::render() {
             break;
         case WINNER:
             cout << "Parabéns, você conseguiu passar por todos os níveis!!!" << endl;
-            cout << "Seu score: 100.000.000.000" << endl;
+            cout << "Seu score: " << m_pontos_totais << endl;
             break;
     }
     cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
