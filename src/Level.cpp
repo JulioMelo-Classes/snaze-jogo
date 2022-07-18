@@ -69,9 +69,9 @@ int Level::get_init_coluna() {
     return m_init_coluna;
 }
 
-pair<int, int> Level::get_pos_comida() {
-    return m_pos_comida;
-}
+// pair<int, int> Level::get_pos_comida() {
+//     return m_pos_comida;
+// }
 
 int Level::get_comidas() {
     return m_comidas;

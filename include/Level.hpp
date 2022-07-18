@@ -28,7 +28,7 @@ class Level {
     /**
      * @brief Retorna a posição da comida em linha e coluna no mapa.
      */
-    std::pair<int, int> get_pos_comida();
+    // std::pair<int, int> get_pos_comida();
 
     /**
      * @brief Quantidade de comidas totais necessárias para completar aquele mapa.

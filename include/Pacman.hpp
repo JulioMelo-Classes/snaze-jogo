@@ -4,10 +4,10 @@
 
 class Pacman {
    private:
-    int m_posl, m_posc; //<! Posições em linha e coluna do pacman no mapa.
-    int m_vidas; //<! Quantidade de vidas do pacman.
-    char m_grafico; //<! Caractere que representa o pacman no mapa.
-    int m_qnt_comida = 0; //<! Quantidade de comidas que o pacman conseguiu comer.
+    int m_posl, m_posc;    //<! Posições em linha e coluna do pacman no mapa.
+    int m_vidas;           //<! Quantidade de vidas do pacman.
+    char m_grafico;        //<! Caractere que representa o pacman no mapa.
+    int m_qnt_comida = 0;  //<! Quantidade de comidas que o pacman conseguiu comer.
 
    public:
     /**

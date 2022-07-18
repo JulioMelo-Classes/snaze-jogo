@@ -27,7 +27,7 @@ SnakeGame::SnakeGame(string levels, string mode, string ia) {
 
 void SnakeGame::carrega_niveis() {
     ifstream levelFile(m_levels_file);
-    if(!levelFile.is_open()) {
+    if (!levelFile.is_open()) {
         cout << "Erro! Arquivo inexistente." << endl;
         exit(-1);
     }
@@ -54,6 +54,7 @@ void SnakeGame::carrega_niveis() {
             level.clear();
         }
     }
+    levelFile.close();
 }
 
 vector<string> SnakeGame::carrega_maze(vector<vector<string>> &niveis, int n) {
@@ -122,13 +123,14 @@ void SnakeGame::update() {
                 m_state = LOSE_LIFE;
             }
             if (m_count1 == 0) {
+                // m_level->colocar_comida_teste(); // FUNÇÃO DE TESTE
                 m_level->colocar_comida();  // Coloca comida em um local aleatório no mapa.
                 m_count1++;
             }
             if (m_level->verifica_comida(m_pacman->get_pos()) == true) {
                 m_pacman->comeu();
                 m_level->apagar_comida(m_pacman->get_pos());
-                // m_level->colocar_comida_teste();
+                m_level->colocar_comida_teste();                             // FUNÇÃO DE TESTE
                 m_count1 = 0;                                                // Após comer, reseta o contador de verificação e entra na condição acima novamente.
                 if (m_pacman->get_qnt_comida() == m_level->get_comidas()) {  // Verifica se comeu.
                     if (m_niveis.size() == m_count2) {                       // Verifica se a quantidade de mapas corresponde ao contador de mapas concluídos.
@@ -239,13 +241,9 @@ void SnakeGame::render() {
     switch (m_state) {
         case WAITING_IA:
         case RUNNING:
-            // desenha todas as linhas do labirinto
-            int pos_l, pos_c;
-            pos_l = m_pacman->get_pos().first;
-            pos_c = m_pacman->get_pos().second;
             for (int i = 0; i < m_level->get_linhas(); i++) {
                 for (int j = 0; j < m_level->get_colunas(); j++) {
-                    if (i == pos_l && j == pos_c)
+                    if (i == m_pacman->get_pos().first && j == m_pacman->get_pos().second)
                         cout << m_pacman->get_grafico();
                     else
                         cout << m_level->get_maze_element(i, j);

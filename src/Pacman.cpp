@@ -34,9 +34,9 @@ void Pacman::move(int l, int c) {
     m_posc += c;
 }
 
-string Pacman::mostrar_vidas(){
+string Pacman::mostrar_vidas() {
     string coracoes = "";
-    for (int i = 0; i < get_vidas(); i++){
+    for (int i = 0; i < get_vidas(); i++) {
         coracoes.append("❤️ ");
     }
     return coracoes;
@@ -54,6 +54,6 @@ void Pacman::comeu() {
     m_qnt_comida += 1;
 }
 
-int Pacman::get_qnt_comida(){
+int Pacman::get_qnt_comida() {
     return m_qnt_comida;
 }
