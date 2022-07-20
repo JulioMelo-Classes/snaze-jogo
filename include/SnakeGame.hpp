@@ -19,7 +19,8 @@ class SnakeGame {
         WAITING_IA,    //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
         LOSE_LIFE,     //<! quando perde uma vida entra nesse estado
         WINNER,        //<! quando o player consegue comer todas as comidas de todos os mapas.
-        NEXT_LEVEL     //<! quando o player consegue comer todas as comidas do mapa e pode escolher ir para o próximo nível.
+        NEXT_LEVEL,     //<! quando o player consegue comer todas as comidas do mapa e pode escolher ir para o próximo nível.
+        PRE_GAME_OVER, //<! quando o jogo está prestes a acabar e cabe ao jogador encerrar ou continuar.
     };
 
    private:
