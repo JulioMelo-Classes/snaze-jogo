@@ -144,7 +144,7 @@ int Player::next_move(Level *level, Pacman *pacman, string modo) {
 
 bool Player::verifica_preso(Level *level, Pacman *pacman) {
     bool pode = false;
-    int posicoes = 0, fix = 0;
+    int posicoes = 0;
 
     auto pos = pacman->get_pos();
     pos.first -= 1;
