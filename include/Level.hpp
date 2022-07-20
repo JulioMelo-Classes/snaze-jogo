@@ -57,7 +57,7 @@ class Level {
     void colocar_comida();
 
     /// FUNÇÃO PARA TESTE DE DESENVOLVIMENTO
-    void colocar_comida_teste();
+    void colocar_comida_teste(std::pair<int, int> pos);
 
     /**
      * @brief Apaga o desenho de uma comida no mapa.
@@ -75,20 +75,10 @@ class Level {
     int get_colunas();
 
     /**
-     * @brief Compara a posição do jogador com a posição da comida no mapa, caso ambas as posições
-     * sejam igual significa que o jogador comeu a comida.
-     */
-    bool verifica_comida(std::pair<int, int> posicao);
-
-    /**
      * @brief Retorna o elemento do mapa correspondente as posições inseridas nos parâmetros.
      */
     char get_maze_element(int l, int c);
 
-    /**
-     * @brief Verifica se a posição inserida nos parâmetros é uma posição válida no mapa, ou seja, que
-     * não é uma parede.
-     */
-    bool permitido(std::pair<int, int> pos);
+    std::vector<std::string> get_maze();
 };
 #endif  // Level_hpp

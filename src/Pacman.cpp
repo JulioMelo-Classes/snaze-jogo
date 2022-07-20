@@ -5,7 +5,7 @@ Pacman::Pacman(int linha_inicial, int coluna_inicial) {
     m_vidas = 5;
     m_posl = linha_inicial;
     m_posc = coluna_inicial;
-    m_grafico = 'c';
+    m_grafico = '<';
 }
 
 int Pacman::get_vidas() {

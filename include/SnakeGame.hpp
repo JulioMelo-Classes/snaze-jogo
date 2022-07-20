@@ -52,15 +52,21 @@ class SnakeGame {
      */
     void loop();
 
+   private:
     /**
      * @brief Consome o arquivo de mapas para separar e guardar as informações de cada mapa
      * individualmente em um vetor.
      */
-    void carrega_niveis();
+    void load_levels();
 
-    std::vector<std::string> carrega_maze(std::vector<std::vector<std::string>> &niveis, int n);
+    /**
+     * @brief Retorna um nivel do vector de niveis referente ao índicie mensionado no paramêtro.
+     * @param niveis    vector com os niveis do jogo.
+     * @param n         número correspondente a algum nivel do vector acima.
+     * @return Retorna um nivel.
+     */
+    std::vector<std::string> get_level(std::vector<std::vector<std::string>> &niveis, int n);
 
-   private:
     /**
      * @brief Realiza a inicialização geral do jogo, carregando o primeiro mapa e instanciando o jogador.
      **/

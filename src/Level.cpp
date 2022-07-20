@@ -14,10 +14,10 @@ Level::Level(vector<string> nivel) {
             ss >> m_colunas;
             ss >> m_comidas;
         } else {
-            if (line.find("v") != string::npos) {
+            if (line.find("<") != string::npos) {
                 /*encontra a posição inicial de acordo com o mapa*/
                 m_init_linha = lineCount;
-                m_init_coluna = line.find("v");
+                m_init_coluna = line.find("<");
                 line[m_init_coluna] = ' ';
             }
             m_maze.push_back(line);
@@ -26,9 +26,9 @@ Level::Level(vector<string> nivel) {
     }
 }
 
-void Level::colocar_comida_teste() {
-    m_pos_comida = make_pair(m_init_linha, m_init_coluna + 2);
-    m_maze[m_init_linha][m_init_coluna + 2] = '*';
+void Level::colocar_comida_teste(pair<int, int> pos) {
+    m_pos_comida = make_pair(pos.first, pos.second + 1);
+    m_maze[pos.first][pos.second + 1] = '*';
 }
 
 void Level::colocar_comida() {
@@ -66,13 +66,6 @@ void Level::apagar_comida(pair<int, int> posicao) {
     m_maze[posicao.first][posicao.second] = ' ';
 }
 
-bool Level::verifica_comida(pair<int, int> posicao) {
-    if (posicao == m_pos_comida) {
-        return true;
-    }
-    return false;
-}
-
 int Level::get_init_linha() {
     return m_init_linha;
 }
@@ -101,15 +94,6 @@ char Level::get_maze_element(int l, int c) {
     return m_maze.at(l).at(c);
 }
 
-bool Level::permitido(std::pair<int, int> pos) {
-    if (pos.first < 0 || pos.second < 0)
-        return false;
-
-    if (pos.first >= m_linhas || pos.second >= m_colunas)
-        return false;
-
-    if (m_maze.at(pos.first).at(pos.second) == '#')
-        return false;
-
-    return true;
+vector<string> Level::get_maze(){
+    return m_maze;
 }
