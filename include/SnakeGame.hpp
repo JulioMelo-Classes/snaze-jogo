@@ -13,14 +13,14 @@ class SnakeGame {
      * @brief descreve os possíveis estados do jogo, fique à vontade para adicionar outros se necessário
      **/
     enum GameStates {
-        RUNNING,       //<! quando o jogo está executando o estado é RUNNING
-        GAME_OVER,     //<! quando o jogo deve terminar o estado é GAME_OVER
-        WAITING_USER,  //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
-        WAITING_IA,    //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
-        LOSE_LIFE,     //<! quando perde uma vida entra nesse estado
-        WINNER,        //<! quando o player consegue comer todas as comidas de todos os mapas.
+        RUNNING,        //<! quando o jogo está executando o estado é RUNNING
+        GAME_OVER,      //<! quando o jogo deve terminar o estado é GAME_OVER
+        WAITING_USER,   //<! quando o jogo deve esperar por uma entrada do usuário o estado é WAITING_USER
+        WAITING_IA,     //<! usualmente o jogo está esperando por comandos da IA, neste caso o estado é WAITING_IA
+        LOSE_LIFE,      //<! quando perde uma vida entra nesse estado
+        WINNER,         //<! quando o player consegue comer todas as comidas de todos os mapas.
         NEXT_LEVEL,     //<! quando o player consegue comer todas as comidas do mapa e pode escolher ir para o próximo nível.
-        PRE_GAME_OVER, //<! quando o jogo está prestes a acabar e cabe ao jogador encerrar ou continuar.
+        PRE_GAME_OVER,  //<! quando o jogo está prestes a acabar e cabe ao jogador encerrar ou continuar.
     };
 
    private:
@@ -95,7 +95,7 @@ class SnakeGame {
     void primeira_tela();
 
     /**
-     * @brief Imprime uma tela quando o jogador completa as comidas do mapa, onde escolhe qual será sua próxima ação.
+     * @brief Tela quando o jogador completa as comidas do mapa, onde escolhe qual será sua próxima ação.
      */
     void next_level_tela();
 
@@ -103,6 +103,16 @@ class SnakeGame {
      * @brief Tela "principal" onde mostra os acontecimentos e informações do jogo.
      */
     void rodando_tela();
+
+    /**
+     * @brief Tela para quando o jogador completar todos os mapas, ele irá tomar decisões sobre o jogo.
+     */
+    void winner_tela();
+
+    /**
+     * @brief Tela onde o jogador perdeu todas as vidas, ele irá tomar decisões sobre o jogo.
+     */
+    void pre_gameover_tela();
 
     /**
      * @brief É chamada quando o jogo termina a fim de destruir/resetar elementos do estado do jogo.

@@ -82,9 +82,6 @@ void SnakeGame::initialize_game() {
 
 void SnakeGame::process_actions() {
     // processa as entradas do jogador de acordo com o estado do jogo
-    // nesse exemplo o jogo tem 3 estados, WAITING_USER, RUNNING e GAME_OVER.
-    // no caso deste trabalho temos 2 tipos de entrada, uma que vem da classe Player, como resultado do processamento da IA
-    // outra vem do próprio usuário na forma de uma entrada do teclado.
     switch (m_state) {
         case WAITING_USER:  // o jogo bloqueia aqui esperando o usuário digitar alguma coisa.
             getline(cin, m_choice);
@@ -135,13 +132,9 @@ void SnakeGame::update() {
 
             m_ia_player.set_pos_visitadas(m_pacman->get_pos());
 
-            // Permitido na classe Level
-            // if (!rodada == 1) {
             if (!m_level->permitido(m_pacman->get_pos())) {
                 m_state = LOSE_LIFE;
             }
-            // }
-            // rodada = 0;
 
             m_ia_player.set_pos_atual(m_pacman->get_pos());
 
@@ -167,6 +160,7 @@ void SnakeGame::update() {
             if (m_state == RUNNING)  // se ainda form running (não pediu para esperar pelo user)
                 m_state = WAITING_IA;
             break;
+
         case WAITING_USER:  // se o jogo estava esperando pelo usuário então ele testa qual a escolha que foi feita
             if (m_choice.empty()) {
                 m_state = WAITING_IA;
@@ -179,6 +173,7 @@ void SnakeGame::update() {
             /*alguma coisa aqui*/
             m_state = RUNNING;  // depois de processar coisas da IA sempre passa para Running
             break;
+
         case LOSE_LIFE:
             m_pacman->resetar_qnt_comida();
             m_level->resetar_pontos();
@@ -190,6 +185,7 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
             }
             break;
+
         case NEXT_LEVEL:
             if (m_decisao_jogador == 1) {
                 // Próximo Nível.
@@ -233,6 +229,7 @@ void SnakeGame::update() {
                 break;
             }
             break;
+
         case WINNER:
             if (m_decisao_jogador == 1) {
                 // Reiniciar o mesmo nível.
@@ -268,6 +265,7 @@ void SnakeGame::update() {
                 break;
             }
             break;
+
         case PRE_GAME_OVER:
             m_pacman->set_vidas(5);
             if (m_decisao_jogador == 1) {
@@ -349,28 +347,17 @@ void SnakeGame::render() {
             wait(600);
             break;
         case PRE_GAME_OVER:
-            cout << "Você perdeu todas as suas vidas..." << endl;
-            cout << "Seu score: " << m_pontos_totais << endl;
-            cout << "[1] Reiniciar este nível." << endl;
-            cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
-            cout << "[3] Finalizar o jogo." << endl
-                 << endl;
-            cout << "Escolha uma opção: ";
+            pre_gameover_tela();
             break;
         case NEXT_LEVEL:
             next_level_tela();
             break;
         case WINNER:
-            cout << "Parabéns, você conseguiu passar por todos os níveis!!!" << endl;
-            cout << "Seu score: " << m_pontos_totais << endl;
-            cout << "[1] Reiniciar este nível." << endl;
-            cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
-            cout << "[3] Finalizar o jogo." << endl
-                 << endl;
-            cout << "Escolha uma opção: ";
+            winner_tela();
             break;
         case GAME_OVER:
-        cout << "Thanks for playing!" << endl;
+            cout << "Thanks for playing!" << endl;
+            break;
     }
     cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
@@ -456,4 +443,24 @@ void SnakeGame::rodando_tela() {
         }
         cout << endl;
     }
+}
+
+void SnakeGame::winner_tela() {
+    cout << "Parabéns, você conseguiu passar por todos os níveis!!!" << endl;
+    cout << "Seu score: " << m_pontos_totais << endl;
+    cout << "[1] Reiniciar este nível." << endl;
+    cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
+    cout << "[3] Finalizar o jogo." << endl
+         << endl;
+    cout << "Escolha uma opção: ";
+}
+
+void SnakeGame::pre_gameover_tela() {
+    cout << "Você perdeu todas as suas vidas..." << endl;
+    cout << "Seu score: " << m_pontos_totais << endl;
+    cout << "[1] Reiniciar este nível." << endl;
+    cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
+    cout << "[3] Finalizar o jogo." << endl
+         << endl;
+    cout << "Escolha uma opção: ";
 }
