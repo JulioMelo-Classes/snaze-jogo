@@ -259,7 +259,7 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
                 break;
             } else if (m_decisao_jogador == 3) {
-                delete m_level;
+                game_over();
                 m_state = GAME_OVER;
                 break;
             } else {
@@ -295,8 +295,9 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
                 break;
             } else if (m_decisao_jogador == 3) {
-                delete m_level;
+                // delete m_level;
                 m_state = GAME_OVER;
+                game_over();
                 break;
             } else {
                 cout << "Escolha Inválida." << endl;
@@ -368,6 +369,8 @@ void SnakeGame::render() {
                  << endl;
             cout << "Escolha uma opção: ";
             break;
+        case GAME_OVER:
+        cout << "Thanks for playing!" << endl;
     }
     cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
