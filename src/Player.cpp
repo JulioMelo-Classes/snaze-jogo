@@ -41,30 +41,30 @@ void Player::find_solution(Level *level, Pacman *pacman) {
     //"resolve o problema com base no mapa, a posição atual da cobra e a posição atual da comida"
 }
 
-bool Player::find_solution_plus(vector<string> level, int linha, int coluna){
-    if (encontrou(linha, coluna)){
+bool Player::find_solution_plus(vector<string> level, int linha, int coluna) {
+    if (encontrou(linha, coluna)) {
         return true;
     } else {
-        if (permitido(level, linha + 1, coluna) == true && visitado(m_pos_visitadas, linha + 1, coluna) == false){
-            if (find_solution_plus(level, linha + 1, coluna)){
+        if (permitido(level, linha + 1, coluna) == true && visitado(m_pos_visitadas, linha + 1, coluna) == false) {
+            if (find_solution_plus(level, linha + 1, coluna)) {
                 return true;
             }
         }
 
-        if (permitido(level, linha - 1, coluna) == true && visitado(m_pos_visitadas, linha - 1, coluna) == false){
-            if (find_solution_plus(level, linha - 1, coluna)){
+        if (permitido(level, linha - 1, coluna) == true && visitado(m_pos_visitadas, linha - 1, coluna) == false) {
+            if (find_solution_plus(level, linha - 1, coluna)) {
                 return true;
             }
         }
 
-        if (permitido(level, linha, coluna + 1) == true && visitado(m_pos_visitadas, linha, coluna + 1) == false){
-            if (find_solution_plus(level, linha, coluna + 1)){
+        if (permitido(level, linha, coluna + 1) == true && visitado(m_pos_visitadas, linha, coluna + 1) == false) {
+            if (find_solution_plus(level, linha, coluna + 1)) {
                 return true;
             }
         }
 
-        if (permitido(level, linha, coluna - 1) == true && visitado(m_pos_visitadas, linha, coluna - 1) == false){
-            if (find_solution_plus(level, linha, coluna - 1)){
+        if (permitido(level, linha, coluna - 1) == true && visitado(m_pos_visitadas, linha, coluna - 1) == false) {
+            if (find_solution_plus(level, linha, coluna - 1)) {
                 return true;
             }
         }
@@ -72,24 +72,26 @@ bool Player::find_solution_plus(vector<string> level, int linha, int coluna){
     return false;
 }
 
-void Player::set_pos_atual(pair<int, int> pos){
+void Player::set_pos_atual(pair<int, int> pos) {
     m_pos_atual = pos;
 }
 
 bool Player::encontrou(int linha, int coluna) {
     pair<int, int> aux;
-    aux.first = linha; aux.second = coluna;
+    aux.first = linha;
+    aux.second = coluna;
     if (m_pos_atual == aux) {
         return true;
     }
     return false;
 }
 
-bool Player::visitado(vector<pair<int, int>> pos_visitadas, int linha, int coluna){
+bool Player::visitado(vector<pair<int, int>> pos_visitadas, int linha, int coluna) {
     pair<int, int> pos;
-    pos.first = linha; pos.second = coluna;
-    for (auto par : pos_visitadas){
-        if (pos == par){
+    pos.first = linha;
+    pos.second = coluna;
+    for (auto par : pos_visitadas) {
+        if (pos == par) {
             return true;
         }
     }
@@ -98,8 +100,8 @@ bool Player::visitado(vector<pair<int, int>> pos_visitadas, int linha, int colun
 
 bool Player::permitido(vector<string> level, int linha, int coluna) {
     int linhas = 0, colunas = 0;
-    for (auto linha : level){
-        for (auto caracter : linha){
+    for (auto linha : level) {
+        for (auto caracter : linha) {
             colunas++;
         }
         linhas++;
@@ -127,7 +129,7 @@ int Player::next_move(Level *level, Pacman *pacman, string modo) {
     int acao = m_acoes.front();
     m_acoes.erase(m_acoes.begin());
 
-    if (modo == "random"){
+    if (modo == "random") {
         while (true) {
             auto pos = pacman->get_pos();
             bool pode = false;
@@ -157,30 +159,37 @@ int Player::next_move(Level *level, Pacman *pacman, string modo) {
                 break;
             }
         }
-        
     }
     return aleatorio;
 }
 
 bool Player::verifica_preso(Level *level, Pacman *pacman) {
     bool pode = false;
-    int posicoes = 0, fix = 0;
+    int posicoes = 0;
 
     auto pos = pacman->get_pos();
     pos.first -= 1;
-    permitido(level->get_maze(), pos.first, pos.second) ? fix++ : posicoes++;
+    if (!permitido(level->get_maze(), pos.first, pos.second)) {
+        posicoes++;
+    }
 
     pos = pacman->get_pos();
     pos.first += 1;
-    permitido(level->get_maze(), pos.first, pos.second) ? fix++ : posicoes++;
+    if (!permitido(level->get_maze(), pos.first, pos.second)) {
+        posicoes++;
+    }
 
     pos = pacman->get_pos();
     pos.second += 1;
-    permitido(level->get_maze(), pos.first, pos.second) ? fix++ : posicoes++;
+    if (!permitido(level->get_maze(), pos.first, pos.second)) {
+        posicoes++;
+    }
 
     pos = pacman->get_pos();
     pos.second -= 1;
-    permitido(level->get_maze(), pos.first, pos.second) ? fix++ : posicoes++;
+    if (permitido(level->get_maze(), pos.first, pos.second)) {
+        posicoes++;
+    }
 
     if (posicoes == 4) {
         return true;
@@ -188,14 +197,14 @@ bool Player::verifica_preso(Level *level, Pacman *pacman) {
     return pode;
 }
 
-void Player::set_pos_visitadas(pair<int, int> pos){
+void Player::set_pos_visitadas(pair<int, int> pos) {
     m_pos_visitadas.push_back(pos);
 }
 
-void Player::get_tam(){
+void Player::get_tam() {
     cout << m_pos_visitadas.size() << endl;
 }
 
-pair<int, int> Player::get_pos_atual(){
+pair<int, int> Player::get_pos_atual() {
     return m_pos_atual;
 }

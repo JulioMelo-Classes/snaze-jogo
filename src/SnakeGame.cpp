@@ -67,6 +67,7 @@ void SnakeGame::initialize_game() {
     m_ia_player = Player();
     m_pacman = new Pacman(m_level->get_init_linha(), m_level->get_init_coluna());
     m_ia_player.set_pos_visitadas(m_pacman->get_pos());
+    // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
     m_level->colocar_comida();
 }
 
@@ -77,19 +78,19 @@ void SnakeGame::process_actions() {
     // outra vem do próprio usuário na forma de uma entrada do teclado.
     switch (m_state) {
         case WAITING_USER:  // o jogo bloqueia aqui esperando o usuário digitar alguma coisa.
-            getline(cin,m_choice);
+            getline(cin, m_choice);
             break;
         case WAITING_IA:
-            if (m_modo == "pacmaze") {          //Estilo de jogo pacmaze.
+            if (m_modo == "pacmaze") {  // Estilo de jogo pacmaze.
                 m_ia_player.find_solution(m_level, m_pacman);
-                //m_ia_player.find_solution_plus(m_level->get_maze(), m_pacman->get_pos().first, m_pacman->get_pos().second);
+                // m_ia_player.find_solution_plus(m_level->get_maze(), m_pacman->get_pos().first, m_pacman->get_pos().second);
                 m_action = m_ia_player.next_move(m_level, m_pacman, m_ia);
-            } else {                            //Estilo de jogo snaze.
+            } else {  // Estilo de jogo snaze.
                 cout << "teste" << endl;
             }
             break;
         case NEXT_LEVEL:
-            cin >> m_decisao_jogador; // Recebe a decisão do jogador após concluir um nível.
+            cin >> m_decisao_jogador;  // Recebe a decisão do jogador após concluir um nível.
         default:
             // nada pra fazer aqui
             break;
@@ -118,24 +119,28 @@ void SnakeGame::update() {
 
             m_ia_player.set_pos_visitadas(m_pacman->get_pos());
 
+            // Permitido na classe Player
             if (!m_ia_player.permitido(m_level->get_maze(), m_pacman->get_pos().first, m_pacman->get_pos().second)) {
                 m_state = LOSE_LIFE;
             }
 
-            if (m_count1 == 0) {
-                //m_level->colocar_comida_teste(m_ia_player.get_pos_atual()); // FUNÇÃO DE TESTE
-                //m_level->colocar_comida();  // Coloca comida em um local aleatório no mapa.
-                m_count1++;
-            }
+            // Permitido na classe Level
+            // if (!rodada == 1) {
+            //     if (!m_level->permitido1(m_pacman->get_pos())) {
+            //         m_state = LOSE_LIFE;
+            //     }
+            // }
+            // rodada = 0;
 
             m_ia_player.set_pos_atual(m_pacman->get_pos());
+
             if (m_ia_player.encontrou(m_level->get_pos_comida().first, m_level->get_pos_comida().second) == true) {
                 m_pacman->comeu();
                 m_level->comeu_pontos();
                 m_level->apagar_comida(m_pacman->get_pos());
-                //m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
+                // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
                 m_level->colocar_comida();
-                m_count1 = 0;                                                // Após comer, reseta o contador de verificação e entra na condição acima novamente.
+
                 if (m_pacman->get_qnt_comida() == m_level->get_comidas()) {  // Verifica se comeu.
                     if (m_niveis.size() == m_count2) {                       // Verifica se a quantidade de mapas corresponde ao contador de mapas concluídos.
                         m_pontos_totais += m_level->get_pontos();
@@ -178,16 +183,15 @@ void SnakeGame::update() {
             if (m_decisao_jogador == 1) {
                 // Próximo Nível.
                 m_pontos_totais += m_level->get_pontos();
-                // m_level->resetar_pontos();
                 m_count2++;  // Atualiza contador de mapas concluídos.
                 delete m_level;
                 m_nivel += 1;  // Incrementa o contador de niveis, para ir para o próximo mapa.
                 m_level = new Level(get_level(m_niveis, m_nivel));
                 m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                 m_pacman->resetar_qnt_comida();
-                //m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
+                // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
                 m_level->colocar_comida();
-                m_state = RUNNING;
+                m_state = WAITING_IA;
                 break;
             } else if (m_decisao_jogador == 2) {
                 // Reiniciar o mesmo nível.
@@ -195,9 +199,9 @@ void SnakeGame::update() {
                 m_level = new Level(get_level(m_niveis, m_nivel));
                 m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                 m_pacman->resetar_qnt_comida();
-                //m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
+                // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
                 m_level->colocar_comida();
-                m_state = RUNNING;
+                m_state = WAITING_IA;
                 break;
             } else if (m_decisao_jogador == 3) {
                 // Reiniciar a partir do lv 1.
@@ -208,9 +212,9 @@ void SnakeGame::update() {
                 m_level = new Level(get_level(m_niveis, m_nivel));
                 m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
                 m_pacman->resetar_qnt_comida();
-                //m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
+                // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
                 m_level->colocar_comida();
-                m_state = RUNNING;
+                m_state = WAITING_IA;
                 break;
             } else {
                 cout << "Escolha Inválida." << endl;
@@ -334,7 +338,7 @@ void SnakeGame::render() {
     }
     cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
-    //m_ia_player.get_tam();
+    // m_ia_player.get_tam();
 }
 
 void SnakeGame::game_over() {
@@ -348,6 +352,6 @@ void SnakeGame::loop() {
         process_actions();
         update();
         render();
-        wait(1);  // espera 1 segundo entre cada frame
+        wait(10);  // espera 1 segundo entre cada frame
     }
 }

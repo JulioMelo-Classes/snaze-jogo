@@ -94,6 +94,19 @@ char Level::get_maze_element(int l, int c) {
     return m_maze.at(l).at(c);
 }
 
-vector<string> Level::get_maze(){
+vector<string> Level::get_maze() {
     return m_maze;
+}
+
+bool Level::permitido1(std::pair<int, int> pos) {
+    if (pos.first < 0 || pos.second < 0)
+        return false;
+
+    if (pos.first >= m_linhas || pos.second >= m_colunas)
+        return false;
+
+    if (m_maze.at(pos.first).at(pos.second) == '#')
+        return false;
+
+    return true;
 }

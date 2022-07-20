@@ -80,5 +80,8 @@ class Level {
     char get_maze_element(int l, int c);
 
     std::vector<std::string> get_maze();
+
+    bool permitido1(std::pair<int, int> pos);
+
 };
 #endif  // Level_hpp

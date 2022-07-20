@@ -10,6 +10,7 @@ class Player {
     std::vector<int> m_acoes;  //<! Vetor com as ações a serem realizadas pelo jogador.
     std::vector<std::pair<int, int>> m_pos_visitadas;
     std::pair<int, int> m_pos_atual;
+
    public:
     void find_solution(Level *level, Pacman *pacman);
     /**
@@ -41,12 +42,13 @@ class Player {
     void get_tam();
 
     std::pair<int, int> get_pos_atual();
-    
+
     /**
      * @brief Verifica se a posição inserida nos parâmetros é uma posição válida no mapa, ou seja, que
      * não é uma parede.
      */
     bool permitido(std::vector<std::string> level, int linha, int coluna);
 
+    bool permitido1(std::pair<int, int> pos);
 };
 #endif  // Player_hpp
