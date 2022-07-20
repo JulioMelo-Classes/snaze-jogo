@@ -80,5 +80,11 @@ class Level {
     char get_maze_element(int l, int c);
 
     std::vector<std::string> get_maze();
+
+    /**
+     * @brief Verifica se a posição inserida nos parâmetros é uma posição válida no mapa, ou seja, que
+     * não é uma parede.
+     */
+    bool permitido(std::pair<int, int> pos);
 };
 #endif  // Level_hpp

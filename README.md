@@ -108,13 +108,19 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 ### Teste de colisão com mapa
 `Simulação de mapa onde o jogador está preso e inevitavelmente irá colidir em alguma direção.`
   - ```
-    ./snaze ../data/testes/testeColisao.txt -mode pacmaze -ia random
+    ./snaze ../data/testes/colisao.txt -mode pacmaze -ia random
     ```
+  - `O player irá colidir com as paredes até que acabem suas vidas.`
 
 <img src="https://user-images.githubusercontent.com/71523376/179371880-118e02c3-1c0c-4595-b81c-33644349864a.png" width="150px">
 
 </br>
 
+### Verificação de jogador no mapa
+  - ```
+    ./snaze ../data/testes/jogadorInexistente.txt  -mode pacmaze -ia random
+    ```
+  - Saída esperada **`Erro! Não foi encontrado nenhum ponto inicial do player no mapa 2.`**
 ### Verificação caso o arquivo não exista
   - ```
     ./snaze ../data/testes/inexistente.txt -mode pacmaze -ia random
