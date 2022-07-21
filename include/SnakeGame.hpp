@@ -24,18 +24,17 @@ class SnakeGame {
     };
 
    private:
-    Level *m_level;           //<! representa o level de mapa atual
-    Pacman *m_pacman;         //<! representa o jogador, que nesse caso sempre será o tipo pacman
-    Player m_ia_player;       //<! instancia da classe Player responsável pela IA do jogo
-    GameStates m_state;       //<! guarda o estado do jogo
-    int m_count1 = 0;         //<! auxilia no operação de colocar comida no mapa, certificando-se que só tenha uma comida no mapa
-    int m_count2 = 1;         //<! contador de mapas concluídos
-    int m_frameCount = 0;     //<! contador de frames, usado apenas como exemplo
-    int m_decisao_jogador;    //<! Representa a escolha do jogador após conseguir todas as comidas.
-    int m_action;             //<! Representa a ação escolhida pela IA
-    int m_nivel = 0;          //<! Posição do mapa no vetor com todos os mapas.
-    int m_pontos_totais = 0;  //<! Quantidade de pontos da partida inteira.
-    int rodada = 0;
+    Level *m_level;                                  //<! representa o level de mapa atual
+    Pacman *m_pacman;                                //<! representa o jogador, que nesse caso sempre será o tipo pacman
+    Player m_ia_player;                              //<! instancia da classe Player responsável pela IA do jogo
+    GameStates m_state;                              //<! guarda o estado do jogo
+    int m_count1 = 0;                                //<! auxilia no operação de colocar comida no mapa, certificando-se que só tenha uma comida no mapa
+    int m_count2 = 1;                                //<! contador de mapas concluídos
+    int m_frameCount = 0;                            //<! contador de frames, usado apenas como exemplo
+    int m_decisao_jogador;                           //<! Representa a escolha do jogador após conseguir todas as comidas.
+    int m_action;                                    //<! Representa a ação escolhida pela IA
+    int m_nivel = 0;                                 //<! Posição do mapa no vetor com todos os mapas.
+    int m_pontos_totais = 0;                         //<! Quantidade de pontos da partida inteira.
     std::string m_choice;                            //<! usado na função process_actions para guardar a escolha do usuário
     std::string m_levels_file;                       //<! arquivo com os níveis do jogo
     std::string m_modo;                              //<! arquivo com os níveis do jogo

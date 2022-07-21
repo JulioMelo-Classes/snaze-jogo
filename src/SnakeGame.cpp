@@ -224,7 +224,7 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
                 break;
             } else {
-                cout << "Escolha Inválida." << endl;
+                cout << "Invalid choice!" << endl;
                 m_state = NEXT_LEVEL;
                 break;
             }
@@ -260,7 +260,7 @@ void SnakeGame::update() {
                 m_state = GAME_OVER;
                 break;
             } else {
-                cout << "Escolha Inválida." << endl;
+                cout << "Invalid choice!" << endl;
                 m_state = WINNER;
                 break;
             }
@@ -298,7 +298,7 @@ void SnakeGame::update() {
                 game_over();
                 break;
             } else {
-                cout << "Escolha Inválida." << endl;
+                cout << "Invalid choice!" << endl;
                 m_state = PRE_GAME_OVER;
                 break;
             }
@@ -343,7 +343,7 @@ void SnakeGame::render() {
             primeira_tela();
             break;
         case LOSE_LIFE:
-            cout << "\nPerdeu uma vida!!" << endl;
+            cout << "\nLost a life!!" << endl;
             wait(600);
             break;
         case PRE_GAME_OVER:
@@ -412,12 +412,12 @@ void SnakeGame::primeira_tela() {
 }
 
 void SnakeGame::next_level_tela() {
-    cout << "Parabéns!!!\nVocê conseguiu comer todos as comidas." << endl;
-    cout << "[1] Ir para o próximo nível." << endl;
-    cout << "[2] Reiniciar este nível." << endl;
-    cout << "[3] Reiniciar o jogo a partir do nível 1." << endl;
+    cout << "Congratulations !!!\nYou managed to eat all the foods." << endl;
+    cout << "[1] Go to the next level." << endl;
+    cout << "[2] Restart this level." << endl;
+    cout << "[3] Restart the game from level 1." << endl;
     cout << endl;
-    cout << "Escolha uma opção: ";
+    cout << "Choose an option: ";
 }
 
 void SnakeGame::rodando_tela() {
@@ -446,21 +446,21 @@ void SnakeGame::rodando_tela() {
 }
 
 void SnakeGame::winner_tela() {
-    cout << "Parabéns, você conseguiu passar por todos os níveis!!!" << endl;
-    cout << "Seu score: " << m_pontos_totais << endl;
-    cout << "[1] Reiniciar este nível." << endl;
-    cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
-    cout << "[3] Finalizar o jogo." << endl
+    cout << "Congratulations, you made it through all the levels!!!" << endl;
+    cout << "Your score: " << m_pontos_totais << endl;
+    cout << "[1] Restart this level." << endl;
+    cout << "[2] Restart the game from level 1." << endl;
+    cout << "[3] End the game." << endl
          << endl;
-    cout << "Escolha uma opção: ";
+    cout << "Choose an option:  ";
 }
 
 void SnakeGame::pre_gameover_tela() {
-    cout << "Você perdeu todas as suas vidas..." << endl;
-    cout << "Seu score: " << m_pontos_totais << endl;
-    cout << "[1] Reiniciar este nível." << endl;
-    cout << "[2] Reiniciar o jogo a partir do nível 1." << endl;
-    cout << "[3] Finalizar o jogo." << endl
+    cout << "You lost all your lives..." << endl;
+    cout << "Your score: " << m_pontos_totais << endl;
+    cout << "[1] Restart this level." << endl;
+    cout << "[2] Restart the game from level 1." << endl;
+    cout << "[3] End the game." << endl
          << endl;
-    cout << "Escolha uma opção: ";
+    cout << "Choose an option: ";
 }
