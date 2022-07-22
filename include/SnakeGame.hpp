@@ -24,6 +24,11 @@ class SnakeGame {
     };
 
    private:
+    int tailX[100], tailY[100];
+    int prevX;
+    int prevY;
+    int prev2X, prev2Y;
+    int ntail;
     Level *m_level;                                  //<! representa o level de mapa atual
     Pacman *m_pacman;                                //<! representa o jogador, que nesse caso sempre será o tipo pacman
     Player m_ia_player;                              //<! instancia da classe Player responsável pela IA do jogo

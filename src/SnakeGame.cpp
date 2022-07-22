@@ -141,7 +141,23 @@ void SnakeGame::update() {
 
             m_ia_player.set_pos_atual(m_pacman->get_pos());
 
+            prevX = tailX[0];
+            prevY = tailY[0];
+            prev2X, prev2Y;
+            tailX[0] = m_pacman->get_pos().first;
+            tailY[0] = m_pacman->get_pos().second;
+            for (int i = 1; i < ntail; i++)
+            {
+                prev2X = tailX[i];
+                prev2Y = tailY[i];
+                tailX[i] = prevX;
+                tailY[i] = prevY;
+                prevX = prev2X;
+                prevY = prev2Y;
+            }
+
             if (m_ia_player.encontrou(m_level->get_pos_comida().first, m_level->get_pos_comida().second) == true) {
+                ntail++;
                 m_pacman->comeu();
                 m_level->comeu_pontos();
                 m_pontos_totais += 10;
@@ -374,7 +390,7 @@ void SnakeGame::loop() {
         process_actions();
         update();
         render();
-        wait(5);  // espera 1 segundo entre cada frame
+        wait(50);  // espera 1 segundo entre cada frame
     }
 }
 
@@ -437,7 +453,17 @@ void SnakeGame::rodando_tela() {
                 if (m_level->get_maze_element(i, j) == '*') {
                     cout << GRN << m_level->get_maze_element(i, j);
                 } else {
-                    cout << NC << m_level->get_maze_element(i, j);
+                    bool print = false;
+                    for (int k = 0; k < ntail; k++)
+                    {
+                        if (tailX[k] == i && tailY[k] == j)
+                        {
+                            cout << "x";
+                            print = true;
+                        }
+                    }
+                    if (!print)
+                        cout << NC << m_level->get_maze_element(i, j);
                 }
             }
         }
