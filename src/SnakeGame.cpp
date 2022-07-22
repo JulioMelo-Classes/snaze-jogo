@@ -104,6 +104,9 @@ void SnakeGame::process_actions() {
         case PRE_GAME_OVER:
             cin >> m_decisao_jogador;  // Recebe a decisão do jogador após concluir um nível.
             break;
+        case LOSE_LIFE:
+            cin >> m_continue;  // Recebe a decisão do jogador após colidir com algo.
+            break;
         default:
             // nada pra fazer aqui
             break;
@@ -175,14 +178,19 @@ void SnakeGame::update() {
             break;
 
         case LOSE_LIFE:
-            m_pacman->resetar_qnt_comida();
-            m_level->resetar_pontos();
-            m_pacman->set_vidas(m_pacman->get_vidas() - 1);
-            m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
-            if (m_pacman->get_vidas() == 0) {
-                m_state = PRE_GAME_OVER;
+            if (m_continue == "n" || m_continue == "N"){
+                m_state = GAME_OVER;
+                game_over();
             } else {
-                m_state = WAITING_IA;
+                m_pacman->resetar_qnt_comida();
+                m_level->resetar_pontos();
+                m_pacman->set_vidas(m_pacman->get_vidas() - 1);
+                m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
+                if (m_pacman->get_vidas() == 0) {
+                    m_state = PRE_GAME_OVER;
+                } else {
+                    m_state = WAITING_IA;
+                }
             }
             break;
 
@@ -211,17 +219,8 @@ void SnakeGame::update() {
                 m_state = WAITING_IA;
                 break;
             } else if (m_decisao_jogador == 3) {
-                // Reiniciar a partir do lv 1.
-                m_pontos_totais = 0;
-                delete m_level;
-                m_count2 = 1;  // Reinicia o contador de mapas concluídos.
-                m_nivel = 0;   // Zera o nível, 0 = primeiro mapa.
-                m_level = new Level(get_level(m_niveis, m_nivel));
-                m_pacman->set_pos(make_pair(m_level->get_init_linha(), m_level->get_init_coluna()));
-                m_pacman->resetar_qnt_comida();
-                // m_level->colocar_comida_teste(m_ia_player.get_pos_atual());
-                m_level->colocar_comida();
-                m_state = WAITING_IA;
+                game_over();
+                m_state = GAME_OVER;
                 break;
             } else {
                 cout << "Invalid choice!" << endl;
@@ -343,8 +342,9 @@ void SnakeGame::render() {
             primeira_tela();
             break;
         case LOSE_LIFE:
-            cout << "\nLost a life!!" << endl;
+            cout << RED "\nLost a life!!" << endl;
             wait(600);
+            cout << "Do you want to continue (Yes/No)? ";
             break;
         case PRE_GAME_OVER:
             pre_gameover_tela();
@@ -359,7 +359,7 @@ void SnakeGame::render() {
             cout << "Thanks for playing!" << endl;
             break;
     }
-    cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
+    //cout << RED << "\n --- > FRAME COUNT >> " << m_frameCount << endl;
     m_frameCount++;
 }
 
@@ -395,7 +395,7 @@ void SnakeGame::primeira_tela() {
     cout << GRN "Lives: ";
     cout << CYN << m_pacman->mostrar_vidas();
     cout << GRN " | Score: ";
-    cout << CYN << m_level->get_pontos() << " / " << m_pontos_totais;
+    cout << CYN << m_pontos_totais;
     cout << GRN " | Apples eaten: ";
     cout << CYN << m_pacman->get_qnt_comida();
     cout << GRN " of ";
@@ -412,19 +412,19 @@ void SnakeGame::primeira_tela() {
 }
 
 void SnakeGame::next_level_tela() {
-    cout << "Congratulations !!!\nYou managed to eat all the foods." << endl;
-    cout << "[1] Go to the next level." << endl;
-    cout << "[2] Restart this level." << endl;
-    cout << "[3] Restart the game from level 1." << endl;
+    cout << GRN "Congratulations !!!\nYou managed to eat all the foods." << endl;
+    cout << GRN "[1] Go to the next level." << endl;
+    cout << GRN "[2] Restart this level." << endl;
+    cout << GRN "[3] End the game." << endl;
     cout << endl;
-    cout << "Choose an option: ";
+    cout << GRN "Choose an option: ";
 }
 
 void SnakeGame::rodando_tela() {
     cout << GRN "Lives: ";
     cout << RED << m_pacman->mostrar_vidas();
     cout << GRN " | Score: ";
-    cout << CYN << m_level->get_pontos() << " / " << m_pontos_totais;
+    cout << CYN << m_pontos_totais;
     cout << GRN " | Apples eaten: ";
     cout << CYN << m_pacman->get_qnt_comida();
     cout << GRN " of ";
@@ -446,21 +446,21 @@ void SnakeGame::rodando_tela() {
 }
 
 void SnakeGame::winner_tela() {
-    cout << "Congratulations, you made it through all the levels!!!" << endl;
-    cout << "Your score: " << m_pontos_totais << endl;
-    cout << "[1] Restart this level." << endl;
-    cout << "[2] Restart the game from level 1." << endl;
-    cout << "[3] End the game." << endl
+    cout << GRN "Congratulations, you made it through all the levels!!!" << endl;
+    cout << GRN "Your score: " << m_pontos_totais << endl;
+    cout << GRN "[1] Restart this level." << endl;
+    cout << GRN "[2] Restart the game from level 1." << endl;
+    cout << GRN "[3] End the game." << endl
          << endl;
-    cout << "Choose an option:  ";
+    cout << GRN "Choose an option:  ";
 }
 
 void SnakeGame::pre_gameover_tela() {
-    cout << "You lost all your lives..." << endl;
-    cout << "Your score: " << m_pontos_totais << endl;
-    cout << "[1] Restart this level." << endl;
-    cout << "[2] Restart the game from level 1." << endl;
-    cout << "[3] End the game." << endl
+    cout << GRN "You lost all your lives..." << endl;
+    cout << GRN "Your score: " << m_pontos_totais << endl;
+    cout << GRN "[1] Restart this level." << endl;
+    cout << GRN "[2] Restart the game from level 1." << endl;
+    cout << GRN "[3] End the game." << endl
          << endl;
-    cout << "Choose an option: ";
+    cout << GRN "Choose an option: ";
 }
