@@ -20,7 +20,7 @@
 </br>
 
 # 🐍 Introdução 🐍
-O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90 com os celulares da Nokia que vinham com o jogo instalado. Aqui tentamos implementar o jogo da cobrinha e o Pac-Man, porém, com o "jogador" preso em um labirinto e sendo controlada por uma IA.
+O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90 com os celulares da Nokia que vinham com o jogo instalado. Aqui tentamos implementar o jogo da cobrinha e o Pac-Man.
 ###
 
 ## Pacman
@@ -60,8 +60,8 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 
     O "**pacmaze**" é uma versão mais simples do programa, nele não há uma cobra, mas sim um PacMan.
 
-    A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.<br>
-    (*A implementação da IA "find" não foi implementado, portanto, existe apenas a inteligência "random" para ser jogada.*)
+    <s>A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.</s><br>
+    (*A IA "find" não foi implementado, portanto, existe apenas a inteligência "random" para ser jogada.*)
 
   - ### Para rodar o programa utilize os comandos no terminal na pasta raíz do projeto:
   &emsp; &emsp; 👇
