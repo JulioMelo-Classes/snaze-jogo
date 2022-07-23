@@ -24,11 +24,6 @@ class SnakeGame {
     };
 
    private:
-    int tailX[100], tailY[100];
-    int prevX;
-    int prevY;
-    int prev2X, prev2Y;
-    int ntail;
     Level *m_level;                                  //<! representa o level de mapa atual
     Pacman *m_pacman;                                //<! representa o jogador, que nesse caso sempre será o tipo pacman
     Player m_ia_player;                              //<! instancia da classe Player responsável pela IA do jogo
@@ -46,6 +41,9 @@ class SnakeGame {
     std::string m_modo;                              //<! arquivo com os níveis do jogo
     std::string m_ia;                                //<! arquivo com os níveis do jogo
     std::vector<std::vector<std::string>> m_niveis;  //<! vector com os niveis do jogo.
+    int m_corpo_x[100], m_corpo_y[100];              //<! vetores com as posições do corpo da cobra.
+    int pos_x = 0, pos_y = 0;                        //<! posições do player no mapa.
+    int pos_x_aux = 0, pos_y_aux = 0;                //<! posições auxiliares para construção do corpo da cobra.
 
    public:
     /**

@@ -87,13 +87,9 @@ void SnakeGame::process_actions() {
             getline(cin, m_choice);
             break;
         case WAITING_IA:
-            if (m_modo == "pacmaze") {  // Estilo de jogo pacmaze.
-                m_ia_player.find_solution(m_level, m_pacman);
-                // m_ia_player.find_solution_plus(m_level->get_maze(), m_pacman->get_pos().first, m_pacman->get_pos().second);
-                m_action = m_ia_player.next_move(m_level, m_pacman, m_ia);
-            } else {  // Estilo de jogo snaze.
-                cout << "teste" << endl;
-            }
+            m_ia_player.find_solution(m_level, m_pacman);
+            // m_ia_player.find_solution_plus(m_level->get_maze(), m_pacman->get_pos().first, m_pacman->get_pos().second);
+            m_action = m_ia_player.next_move(m_level, m_pacman, m_ia);
             break;
         case NEXT_LEVEL:
             cin >> m_decisao_jogador;  // Recebe a decisão do jogador após concluir um nível.
@@ -141,23 +137,22 @@ void SnakeGame::update() {
 
             m_ia_player.set_pos_atual(m_pacman->get_pos());
 
-            prevX = tailX[0];
-            prevY = tailY[0];
-            prev2X, prev2Y;
-            tailX[0] = m_pacman->get_pos().first;
-            tailY[0] = m_pacman->get_pos().second;
-            for (int i = 1; i < ntail; i++)
+            pos_x = m_corpo_x[0];
+            pos_y = m_corpo_y[0];
+            pos_x_aux, pos_y_aux;
+            m_corpo_x[0] = m_pacman->get_pos().first;
+            m_corpo_y[0] = m_pacman->get_pos().second;
+            for (int i = 1; i <= m_pacman->get_qnt_comida(); i++)
             {
-                prev2X = tailX[i];
-                prev2Y = tailY[i];
-                tailX[i] = prevX;
-                tailY[i] = prevY;
-                prevX = prev2X;
-                prevY = prev2Y;
+                pos_x_aux = m_corpo_x[i];
+                pos_y_aux = m_corpo_y[i];
+                m_corpo_x[i] = pos_x;
+                m_corpo_y[i] = pos_y;
+                pos_x = pos_x_aux;
+                pos_y = pos_y_aux;
             }
 
             if (m_ia_player.encontrou(m_level->get_pos_comida().first, m_level->get_pos_comida().second) == true) {
-                ntail++;
                 m_pacman->comeu();
                 m_level->comeu_pontos();
                 m_pontos_totais += 10;
@@ -390,7 +385,7 @@ void SnakeGame::loop() {
         process_actions();
         update();
         render();
-        wait(50);  // espera 1 segundo entre cada frame
+        wait(10);  // espera 1 segundo entre cada frame
     }
 }
 
@@ -453,17 +448,23 @@ void SnakeGame::rodando_tela() {
                 if (m_level->get_maze_element(i, j) == '*') {
                     cout << GRN << m_level->get_maze_element(i, j);
                 } else {
-                    bool print = false;
-                    for (int k = 0; k < ntail; k++)
-                    {
-                        if (tailX[k] == i && tailY[k] == j)
-                        {
-                            cout << "x";
-                            print = true;
+                    if (m_modo == "snaze"){
+                        bool print = false;
+
+                        for (int k = 0; k < m_pacman->get_qnt_comida(); k++) {
+                            if (m_corpo_x[k] == i && m_corpo_y[k] == j) {
+                                cout << 'x';
+                                print = true;
+                            }
                         }
-                    }
-                    if (!print)
+
+                        if (!print){
+                            cout << NC << m_level->get_maze_element(i, j);
+                        }
+
+                    } else {
                         cout << NC << m_level->get_maze_element(i, j);
+                    }
                 }
             }
         }
