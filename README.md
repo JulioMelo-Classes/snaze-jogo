@@ -56,12 +56,12 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 ***
 ## Como rodar
   - ### Tipos de Jogos 
-    Há 2 escolhas de tipos de simulação, na flag "-mode" poderá ser escolhido "snaze" ou "pacmaze". Na flag "-ia" poderá ser escolhido "random" ou "find".
+    Há 2 escolhas de tipos de simulação, na flag "-mode" poderá ser escolhido "**snaze**" ou "**pacmaze**". Na flag "-ia" poderá ser escolhido "**random**" ou "**find**".
 
     O "**pacmaze**" é uma versão mais simples do programa, nele não há uma cobra, mas sim um PacMan.
 
     A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.<br>
-    (*A implementação dessa IA "find" e o modo "snaze" não foi implementada, portanto, existe apenas a inteligência "random" e o modo "pacmaze" para ser jogado*)
+    (*A implementação da IA "find" não foi implementado, portanto, existe apenas a inteligência "random" para ser jogada.*)
 
   - ### Para rodar o programa utilize os comandos no terminal na pasta raíz do projeto:
   &emsp; &emsp; 👇
