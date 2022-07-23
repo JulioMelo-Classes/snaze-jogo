@@ -33,7 +33,7 @@ class Player {
     bool encontrou(int linha, int coluna);
 
     // FUNÇÕES DE SUPORTE A UTILIZAÇÃO DO FIND, NÃO IMPLEMENTADO.
-
+    // *********************************************
     /**
      * @brief Marca como uma posição visitada para utilização do find.
      */
@@ -45,12 +45,12 @@ class Player {
     void set_pos_atual(std::pair<int, int> pos);
 
     /**
-     * @brief Retorna true se a posição já estiver tido marcada como visitado
+     * @brief Retorna true se a posição já estiver tido marcada como visitado.
      */
     bool visitado(std::vector<std::pair<int, int>> pos_visitadas, int linha, int coluna);
 
     /**
-     * @brief Implementação do find (não conseguimos)
+     * @brief Implementação do find (não conseguimos).
      */
     bool find_solution_plus(std::vector<std::string> level, int linha, int coluna);
 
@@ -59,6 +59,12 @@ class Player {
      */
     void get_tam();
 
+    /**
+     * @brief Retorna a posição do jogador no modo find.
+     */
     std::pair<int, int> get_pos_atual();
+
+    // *********************************************
+    // FIM DAS FUNÇÕES DE SUPORTE A UTILIZAÇÃO DO FIND.
 };
 #endif  // Player_hpp

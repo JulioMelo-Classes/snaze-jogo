@@ -41,6 +41,7 @@ class SnakeGame {
     std::string m_modo;                              //<! arquivo com os níveis do jogo
     std::string m_ia;                                //<! arquivo com os níveis do jogo
     std::vector<std::vector<std::string>> m_niveis;  //<! vector com os niveis do jogo.
+    // Atributos para utilização do modo "snaze" (não implementado).
     int m_corpo_x[100], m_corpo_y[100];              //<! vetores com as posições do corpo da cobra.
     int pos_x = 0, pos_y = 0;                        //<! posições do player no mapa.
     int pos_x_aux = 0, pos_y_aux = 0;                //<! posições auxiliares para construção do corpo da cobra.
