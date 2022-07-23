@@ -13,6 +13,7 @@
     - [Mapa 3: <br>](#mapa-3-)
 - [🧪 Validações e testes](#-validações-e-testes)
     - [Teste de colisão com mapa](#teste-de-colisão-com-mapa)
+    - [Verificação de jogador no mapa](#verificação-de-jogador-no-mapa)
     - [Verificação caso o arquivo não exista](#verificação-caso-o-arquivo-não-exista)
 - [🤝 Colaboradores](#-colaboradores)
 ***
@@ -59,7 +60,8 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 
     O "**pacmaze**" é uma versão mais simples do programa, nele não há uma cobra, mas sim um PacMan.
 
-    A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.
+    A versão com "**find**" é uma forma mais inteligente do pacman/cobra se movimentar, nela é feito a tentativa de achar o caminho mais curto para a comida no mapa.<br>
+    (*A implementação dessa IA "find" e o modo "snaze" não foi implementada, portanto, existe apenas a inteligência "random" e o modo "pacmaze" para ser jogado*)
 
   - ### Para rodar o programa utilize os comandos no terminal na pasta raíz do projeto:
   &emsp; &emsp; 👇

@@ -8,8 +8,9 @@
 class Player {
    private:
     std::vector<int> m_acoes;  //<! Vetor com as ações a serem realizadas pelo jogador.
-    std::vector<std::pair<int, int>> m_pos_visitadas;
-    std::pair<int, int> m_pos_atual;
+    // ATRIBUTOS DE SUPORTE A UTILIZAÇÃO DO FIND, NÃO IMPLEMENTADO.
+    std::vector<std::pair<int, int>> m_pos_visitadas;  //<! Vetor com as posições marcadas como visitadas.
+    std::pair<int, int> m_pos_atual;                   //<! Posição atual do jogador.
 
    public:
     void find_solution(Level *level, Pacman *pacman);
@@ -25,20 +26,37 @@ class Player {
      */
     bool verifica_preso(Level *level, Pacman *pacman);
 
-    void set_pos_visitadas(std::pair<int, int> pos);
-
-    void set_pos_atual(std::pair<int, int> pos);
-
-    bool visitado(std::vector<std::pair<int, int>> pos_visitadas, int linha, int coluna);
-
-    bool find_solution_plus(std::vector<std::string> level, int linha, int coluna);
-
     /**
      * @brief Compara a posição do jogador com a posição da comida no mapa, caso ambas as posições
      * sejam igual significa que o jogador comeu a comida.
      */
     bool encontrou(int linha, int coluna);
 
+    // FUNÇÕES DE SUPORTE A UTILIZAÇÃO DO FIND, NÃO IMPLEMENTADO.
+
+    /**
+     * @brief Marca como uma posição visitada para utilização do find.
+     */
+    void set_pos_visitadas(std::pair<int, int> pos);
+
+    /**
+     * @brief Define a posição atual para utilização do find.
+     */
+    void set_pos_atual(std::pair<int, int> pos);
+
+    /**
+     * @brief Retorna true se a posição já estiver tido marcada como visitado
+     */
+    bool visitado(std::vector<std::pair<int, int>> pos_visitadas, int linha, int coluna);
+
+    /**
+     * @brief Implementação do find (não conseguimos)
+     */
+    bool find_solution_plus(std::vector<std::string> level, int linha, int coluna);
+
+    /**
+     * @brief  Retorna quantas posições já foram marcadas como visitadas.
+     */
     void get_tam();
 
     std::pair<int, int> get_pos_atual();
