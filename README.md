@@ -131,6 +131,55 @@ O programa é uma simulação do jogo da cobrinha, jogo muito famoso nos anos 90
 
 </br>
 
+# 📑 Avaliação e Feedback
+
+## Geral
+
+- **G1** Implementção e Uso das Classes Especificadas (ou alguma modelagem própria) | 7/10 pontos
+  - Faltou a uma classe/implementação para o snake
+
+- **G2** Implementação da Interface Textua Especificada | 10/10 pontos
+
+
+- **G3** Implementação do Modo Pacmaze | 15/20 pontos
+
+	- *G3.1* Carregamento e transição de Níveis | 5/5 pontos
+
+	- *G3.2* Detecção de colisão e game over | 3/3 pontos
+
+	- *G3.3* Transições especificadas (repetir nivel, voltar nivel, reiniciar) | 4/4 pontos
+
+	- *G3.4* Implementação da IA modo Random | 3/3 pontos
+	
+	- *G3.5* Implementação da IA modo Find | 0/5 pontos
+
+- **G4.** Implementação do Modo Snaze | 0/15 pontos
+
+	- *G4.1* Implementação do desenho correto da Snake | 0/2 pontos
+	
+	- *G4.2* Implementação da IA Random | 0/3 pontos
+	
+	- *G4.3* Solução do Problema da Cauda 1 | 0/5 pontos
+	
+	- *G4.4* Solução do Problema da Cauda 2 | 0/5 pontos
+
+## Código
+
+- **C1** Readme | 10/10 pontos
+
+- **C2**  Documentação, organização e indentação do código (obrigatório) 0 / -5 pontos
+
+- **C3** Compilação automatizada (obrigatória) 0 / -5 pontos
+
+## Extra
+
+- **E1** Modo debug 0 / 5 pontos
+
+## Penalizações por implementações ignorando as restrições
+
+- Observações gerais 0 / -25 pontos
+  - Vi que vocês deixaram o método "get_maze" mas ele não está sendo utilizado, bom trabalho.
+
 # 🤝 Colaboradores
   * [Danrley Lima](https://github.com/Danrley-Lima)
   * [Lucas Morais](https://github.com/lucas-morais27)
